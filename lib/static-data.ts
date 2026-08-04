@@ -1,9 +1,9 @@
 import {
-  ProgramStatus,
-  SocialContentType,
-  SocialPlatform,
-  SyncStatus
-} from "@prisma/client";
+  PROGRAM_STATUS,
+  SOCIAL_CONTENT_TYPE,
+  SOCIAL_PLATFORM,
+  SYNC_STATUS
+} from "@/lib/content-model";
 
 import type {
   ArticleRecord,
@@ -68,7 +68,7 @@ export const staticPrograms: ProgramWithCategory[] = [
     language: "si",
     imageUrl: "/images/news-cover.jpeg",
     isFeatured: true,
-    status: ProgramStatus.ACTIVE,
+    status: PROGRAM_STATUS.ACTIVE,
     category: categoryMap.get("news") ?? null,
     scheduleSlots: [],
     createdAt,
@@ -84,7 +84,7 @@ export const staticPrograms: ProgramWithCategory[] = [
     language: "si",
     imageUrl: "/images/janahada.jpeg",
     isFeatured: true,
-    status: ProgramStatus.ACTIVE,
+    status: PROGRAM_STATUS.ACTIVE,
     category: categoryMap.get("news") ?? null,
     scheduleSlots: [],
     createdAt,
@@ -100,7 +100,7 @@ export const staticPrograms: ProgramWithCategory[] = [
     language: "si",
     imageUrl: "/images/samanmaliya.jpeg",
     isFeatured: true,
-    status: ProgramStatus.ACTIVE,
+    status: PROGRAM_STATUS.ACTIVE,
     category: categoryMap.get("drama") ?? null,
     scheduleSlots: [],
     createdAt,
@@ -116,7 +116,7 @@ export const staticPrograms: ProgramWithCategory[] = [
     language: "si",
     imageUrl: "/images/yowun-wasanthaye.jpeg",
     isFeatured: true,
-    status: ProgramStatus.ACTIVE,
+    status: PROGRAM_STATUS.ACTIVE,
     category: categoryMap.get("drama") ?? null,
     scheduleSlots: [],
     createdAt,
@@ -133,7 +133,7 @@ export const staticPrograms: ProgramWithCategory[] = [
     language: "si",
     imageUrl: "/images/every-morning.jpeg",
     isFeatured: false,
-    status: ProgramStatus.ACTIVE,
+    status: PROGRAM_STATUS.ACTIVE,
     category: categoryMap.get("lifestyle") ?? null,
     scheduleSlots: [],
     createdAt,
@@ -149,7 +149,7 @@ export const staticPrograms: ProgramWithCategory[] = [
     language: "si",
     imageUrl: "/images/cricket.jpeg",
     isFeatured: false,
-    status: ProgramStatus.ACTIVE,
+    status: PROGRAM_STATUS.ACTIVE,
     category: categoryMap.get("sports") ?? null,
     scheduleSlots: [],
     createdAt,
@@ -359,7 +359,7 @@ export const staticArticles: ArticleRecord[] = [
 export const staticAccounts: SocialAccountRecord[] = [
   {
     id: "account-youtube-main",
-    platform: SocialPlatform.YOUTUBE,
+    platform: SOCIAL_PLATFORM.YOUTUBE,
     externalId: "@tvsupreme",
     handle: "@tvsupreme",
     title: "TV Supreme",
@@ -373,7 +373,7 @@ export const staticAccounts: SocialAccountRecord[] = [
   },
   {
     id: "account-youtube-news",
-    platform: SocialPlatform.YOUTUBE,
+    platform: SOCIAL_PLATFORM.YOUTUBE,
     externalId: "@tvsupremenews",
     handle: "@tvsupremenews",
     title: "TV Supreme News",
@@ -387,7 +387,7 @@ export const staticAccounts: SocialAccountRecord[] = [
   },
   {
     id: "account-facebook-main",
-    platform: SocialPlatform.FACEBOOK,
+    platform: SOCIAL_PLATFORM.FACEBOOK,
     externalId: "tvsupremelk",
     handle: "tvsupremelk",
     title: "TV Supreme",
@@ -401,7 +401,7 @@ export const staticAccounts: SocialAccountRecord[] = [
   },
   {
     id: "account-facebook-news",
-    platform: SocialPlatform.FACEBOOK,
+    platform: SOCIAL_PLATFORM.FACEBOOK,
     externalId: "tvsupremenews",
     handle: "tvsupremenews",
     title: "TV Supreme News",
@@ -420,7 +420,7 @@ const accountMap = new Map(staticAccounts.map((account) => [account.id, account]
 export const staticVideos: VideoWithAccount[] = [
   {
     id: "video-seed-live-window",
-    platform: SocialPlatform.YOUTUBE,
+    platform: SOCIAL_PLATFORM.YOUTUBE,
     externalId: "seed-live-window",
     accountId: "account-youtube-main",
     account: accountMap.get("account-youtube-main") ?? null,
@@ -445,8 +445,8 @@ export const staticVideos: VideoWithAccount[] = [
 export const staticSocialPosts: SocialPostWithAccount[] = [
   {
     id: "post-seed-facebook-launch",
-    platform: SocialPlatform.FACEBOOK,
-    contentType: SocialContentType.POST,
+    platform: SOCIAL_PLATFORM.FACEBOOK,
+    contentType: SOCIAL_CONTENT_TYPE.POST,
     externalId: "seed-facebook-launch",
     accountId: "account-facebook-main",
     account: accountMap.get("account-facebook-main") ?? null,
@@ -467,9 +467,9 @@ export const staticSocialPosts: SocialPostWithAccount[] = [
 export const staticSyncRuns: SyncRunRecord[] = [
   {
     id: "sync-youtube-seed",
-    platform: SocialPlatform.YOUTUBE,
+    platform: SOCIAL_PLATFORM.YOUTUBE,
     target: "@tvsupreme",
-    status: SyncStatus.SUCCESS,
+    status: SYNC_STATUS.SUCCESS,
     startedAt: new Date("2026-07-30T19:05:00+05:30"),
     completedAt: new Date("2026-07-30T19:06:00+05:30"),
     itemsProcessed: 1,
@@ -478,9 +478,9 @@ export const staticSyncRuns: SyncRunRecord[] = [
   },
   {
     id: "sync-facebook-seed",
-    platform: SocialPlatform.FACEBOOK,
+    platform: SOCIAL_PLATFORM.FACEBOOK,
     target: "tvsupremelk",
-    status: SyncStatus.SUCCESS,
+    status: SYNC_STATUS.SUCCESS,
     startedAt: new Date("2026-07-30T12:05:00+05:30"),
     completedAt: new Date("2026-07-30T12:06:00+05:30"),
     itemsProcessed: 1,

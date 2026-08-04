@@ -1,9 +1,39 @@
-import type {
-  ProgramStatus,
-  SocialContentType,
-  SocialPlatform,
-  SyncStatus
-} from "@prisma/client";
+export const SOCIAL_PLATFORM = {
+  FACEBOOK: "FACEBOOK",
+  YOUTUBE: "YOUTUBE",
+  WEBSITE: "WEBSITE"
+} as const;
+
+export type SocialPlatform =
+  (typeof SOCIAL_PLATFORM)[keyof typeof SOCIAL_PLATFORM];
+
+export const SOCIAL_CONTENT_TYPE = {
+  POST: "POST",
+  VIDEO: "VIDEO",
+  LIVE: "LIVE",
+  SHORT: "SHORT"
+} as const;
+
+export type SocialContentType =
+  (typeof SOCIAL_CONTENT_TYPE)[keyof typeof SOCIAL_CONTENT_TYPE];
+
+export const PROGRAM_STATUS = {
+  ACTIVE: "ACTIVE",
+  UPCOMING: "UPCOMING",
+  ARCHIVED: "ARCHIVED",
+  DRAFT: "DRAFT"
+} as const;
+
+export type ProgramStatus =
+  (typeof PROGRAM_STATUS)[keyof typeof PROGRAM_STATUS];
+
+export const SYNC_STATUS = {
+  SUCCESS: "SUCCESS",
+  PARTIAL: "PARTIAL",
+  FAILED: "FAILED"
+} as const;
+
+export type SyncStatus = (typeof SYNC_STATUS)[keyof typeof SYNC_STATUS];
 
 export type ProgramCategoryRecord = {
   id: string;
