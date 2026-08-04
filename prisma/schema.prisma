@@ -1,0 +1,198 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum SocialPlatform {
+  FACEBOOK
+  YOUTUBE
+  WEBSITE
+}
+
+enum SocialContentType {
+  POST
+  VIDEO
+  LIVE
+  SHORT
+}
+
+enum ProgramStatus {
+  ACTIVE
+  UPCOMING
+  ARCHIVED
+  DRAFT
+}
+
+enum SyncStatus {
+  SUCCESS
+  PARTIAL
+  FAILED
+}
+
+model ProgramCategory {
+  id          String    @id @default(cuid())
+  name        String
+  slug        String    @unique
+  description String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  programs    Program[]
+}
+
+model Program {
+  id           String          @id @default(cuid())
+  title        String
+  slug         String          @unique
+  summary      String
+  description  String?
+  language     String          @default("si")
+  imageUrl     String?
+  isFeatured   Boolean         @default(false)
+  status       ProgramStatus   @default(ACTIVE)
+  categoryId   String?
+  category     ProgramCategory? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  scheduleSlots ScheduleSlot[]
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+}
+
+model ScheduleSlot {
+  id           String    @id @default(cuid())
+  programId     String?
+  program       Program?  @relation(fields: [programId], references: [id], onDelete: SetNull)
+  title         String
+  dayOfWeek     Int
+  startMinutes  Int
+  endMinutes    Int
+  timezone      String    @default("Asia/Colombo")
+  isLiveWindow  Boolean   @default(false)
+  notes         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@index([dayOfWeek, startMinutes])
+}
+
+model Article {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  excerpt     String
+  body        String?
+  category    String
+  imageUrl    String?
+  sourceUrl   String?
+  isFeatured  Boolean  @default(false)
+  publishedAt DateTime
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([publishedAt(sort: Desc)])
+}
+
+model SocialAccount {
+  id            String         @id @default(cuid())
+  platform      SocialPlatform
+  externalId    String
+  handle        String?
+  title         String
+  url           String
+  avatarUrl     String?
+  followerCount BigInt?
+  lastSyncedAt  DateTime?
+  isActive      Boolean        @default(true)
+  rawJson       Json?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  videos        Video[]
+  socialPosts   SocialPost[]
+
+  @@unique([platform, externalId])
+  @@unique([platform, handle])
+}
+
+model Video {
+  id              String         @id @default(cuid())
+  platform        SocialPlatform
+  externalId      String
+  accountId       String?
+  account         SocialAccount? @relation(fields: [accountId], references: [id], onDelete: SetNull)
+  title           String
+  description     String?
+  url             String
+  embedUrl        String?
+  thumbnailUrl    String?
+  publishedAt     DateTime
+  durationSeconds Int?
+  viewCount       BigInt?
+  likeCount       BigInt?
+  commentCount    BigInt?
+  isLive          Boolean        @default(false)
+  isFeatured      Boolean        @default(false)
+  rawJson         Json?
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  @@unique([platform, externalId])
+  @@index([publishedAt(sort: Desc)])
+}
+
+model SocialPost {
+  id            String            @id @default(cuid())
+  platform      SocialPlatform
+  contentType   SocialContentType @default(POST)
+  externalId    String
+  accountId     String?
+  account       SocialAccount?    @relation(fields: [accountId], references: [id], onDelete: SetNull)
+  message       String?
+  url           String
+  thumbnailUrl  String?
+  publishedAt   DateTime
+  reactionCount BigInt?
+  commentCount  BigInt?
+  shareCount    BigInt?
+  isFeatured    Boolean           @default(false)
+  rawJson       Json?
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+
+  @@unique([platform, externalId])
+  @@index([publishedAt(sort: Desc)])
+}
+
+model FeaturedSection {
+  key         String          @id
+  title       String
+  description String?
+  entries     FeaturedEntry[]
+}
+
+model FeaturedEntry {
+  id          String          @id @default(cuid())
+  sectionKey  String
+  section     FeaturedSection @relation(fields: [sectionKey], references: [key], onDelete: Cascade)
+  contentKind String
+  contentId   String
+  position    Int
+  label       String?
+
+  @@unique([sectionKey, position])
+}
+
+model SyncRun {
+  id             String         @id @default(cuid())
+  platform       SocialPlatform
+  target         String
+  status         SyncStatus
+  startedAt      DateTime       @default(now())
+  completedAt    DateTime?
+  itemsProcessed Int            @default(0)
+  message        String?
+  metadata       Json?
+  createdAt      DateTime       @default(now())
+
+  @@index([platform, startedAt(sort: Desc)])
+}

@@ -1,0 +1,213 @@
+// Each "content event" is one story — staff creates it once.
+// The platforms object holds per-platform metadata that gets
+// populated either manually or via webhook from each platform's API.
+
+export const CATEGORIES = [
+  { key: 'sports',        label: 'Sports' },
+  { key: 'politics',      label: 'Politics' },
+  { key: 'entertainment', label: 'Entertainment' },
+  { key: 'business',      label: 'Business' },
+];
+
+export const PLATFORM_META = {
+  youtube: {
+    name: 'YouTube', short: 'YT',
+    bg: '#FF0000', text: '#fff',
+    path: 'M23.5 6.2s-.3-1.9-1.1-2.8c-1.1-1.1-2.3-1.1-2.8-1.2C16.8 2 12 2 12 2s-4.8 0-7.6.2c-.5 0-1.7.1-2.8 1.2C.8 4.3.5 6.2.5 6.2S.2 8.4.2 10.6v2.1c0 2.2.3 4.4.3 4.4s.3 1.9 1.1 2.8c1.1 1.1 2.5 1.1 3.1 1.2C6.9 21.1 12 21.1 12 21.1s4.8 0 7.6-.2c.5 0 1.7-.1 2.8-1.2.8-.9 1.1-2.8 1.1-2.8s.3-2.2.3-4.4v-2.1c0-2.2-.3-4.4-.3-4.4zm-13.6 9-.1-7.7 7.5 3.9-7.4 3.8z',
+  },
+  facebook: {
+    name: 'Facebook', short: 'FB',
+    bg: '#1877F2', text: '#fff',
+    path: 'M24 12.07C24 5.41 18.63 0 12 0S0 5.41 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.8-4.7 4.54-4.7 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.95.93-1.95 1.88v2.26h3.32l-.53 3.5h-2.79V24C19.62 23.1 24 18.1 24 12.07z',
+  },
+  tiktok: {
+    name: 'TikTok', short: 'TT',
+    bg: '#010101', text: '#fff',
+    path: 'M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.73a4.85 4.85 0 01-1.01-.04z',
+  },
+  whatsapp: {
+    name: 'WhatsApp', short: 'WA',
+    bg: '#25D366', text: '#fff',
+    path: 'M17.47 14.38c-.29-.15-1.73-.85-2-.95-.26-.1-.46-.15-.65.15-.19.29-.75.95-.92 1.14-.17.19-.34.22-.63.07-1.74-.87-2.88-1.55-4.02-3.51-.3-.52.3-.49.87-1.62.1-.19.05-.36-.02-.5-.08-.15-.65-1.57-.9-2.15-.23-.56-.48-.49-.65-.5l-.56-.01c-.19 0-.5.07-.77.37C7.6 6.8 6.8 7.56 6.8 9.07c0 1.51 1.1 2.97 1.25 3.17.16.21 2.16 3.3 5.23 4.63 1.94.84 2.7.91 3.67.77.59-.09 1.73-.71 1.97-1.39.24-.68.24-1.27.17-1.39-.07-.12-.26-.19-.55-.34zM12.05 21.8h-.03a9.87 9.87 0 01-5.03-1.38l-.36-.21-3.73.98 1-3.64-.24-.37A9.86 9.86 0 012.14 12c0-5.44 4.43-9.87 9.89-9.87 2.64 0 5.12 1.03 6.98 2.9a9.8 9.8 0 012.89 6.98c-.01 5.44-4.44 9.79-9.85 9.79zm8.41-18.2A11.82 11.82 0 0012.04 0C5.38 0 0 5.38 0 12.04c0 2.12.55 4.2 1.6 6.03L0 24l6.08-1.59a12.02 12.02 0 005.95 1.52h.01c6.66 0 12.04-5.38 12.04-12.04 0-3.22-1.25-6.24-3.62-8.49z',
+  },
+  instagram: {
+    name: 'Instagram', short: 'IG',
+    bg: 'linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)', text: '#fff',
+    path: 'M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z',
+  },
+};
+
+export const PLATFORM_CONTENT = {
+  sports: {
+    eventTitle: "SL vs IND T20 — Match 3 Today",
+    syncedAt: "3 min ago",
+    youtube: {
+      title: "SL vs IND T20 Match 3 Full Highlights — Nissanka Century!",
+      thumb: "/images/cricket.jpeg",
+      duration: "18:42",
+      views: "312K",
+      likes: "14.2K",
+      postedAt: "2 hrs ago",
+      url: "#",
+    },
+    facebook: {
+      caption: "What a game! 🏏🔥 Pathum Nissanka smashes his way to a brilliant century as Sri Lanka clinch the T20 series 2-1 against India. Colombo went crazy tonight! Watch the full highlights on our YouTube. #SLvIND #Cricket #SupremeTV",
+      thumb: "/images/cricket.jpeg",
+      reactions: { like: 4821, love: 1204, wow: 387 },
+      comments: 892,
+      shares: 1340,
+      postedAt: "1 hr ago",
+      url: "#",
+    },
+    tiktok: {
+      caption: "Sangakkara watching Nissanka go CRAZY 🤩🏏 #Cricket #SriLanka #T20 #SupremeTV",
+      thumb: "/images/cricket.jpeg",
+      views: "2.1M",
+      likes: "189K",
+      shares: "42.3K",
+      postedAt: "45 min ago",
+      url: "#",
+    },
+    whatsapp: {
+      channelName: "Supreme Sports Channel",
+      members: "23.4K",
+      highlights: [
+        { text: "Nissanka 112* off 68 balls 🔥🔥🔥", reactions: "👏 4.2K" },
+        { text: "Sri Lanka win by 8 wickets! Colombo goes WILD", reactions: "🎉 6.8K" },
+        { text: "Full scorecard + replay link dropped 👇", reactions: "❤️ 3.1K" },
+        { text: "\"Best innings I've seen this decade\" — fans reacting", reactions: "🏏 2.9K" },
+      ],
+      postedAt: "30 min ago",
+      url: "#",
+    },
+  },
+  politics: {
+    eventTitle: "Emergency Parliament Session Today",
+    syncedAt: "8 min ago",
+    youtube: {
+      title: "LIVE: Emergency Parliament Session — Budget & IMF Deal Full Coverage",
+      thumb: "/images/live.jpeg",
+      duration: "LIVE",
+      views: "9.8K watching",
+      likes: "1.2K",
+      postedAt: "Live now",
+      url: "#",
+    },
+    facebook: {
+      caption: "BREAKING: President has called an emergency sitting of Parliament tonight. Finance Minister expected to present the new IMF recovery framework. We're LIVE. Follow for updates. 🔴 #LKA #Parliament #SupremeTV",
+      thumb: "/images/news-cover.jpeg",
+      reactions: { like: 3240, love: 180, wow: 2100 },
+      comments: 1450,
+      shares: 2890,
+      postedAt: "14 min ago",
+      url: "#",
+    },
+    tiktok: {
+      caption: "Parliament called at MIDNIGHT — here's what it means for you 🧵 #SriLanka #Politics #Economy #SupremeTV",
+      thumb: "/images/janahada.jpeg",
+      views: "890K",
+      likes: "67K",
+      shares: "28.1K",
+      postedAt: "20 min ago",
+      url: "#",
+    },
+    whatsapp: {
+      channelName: "Supreme News Alerts",
+      members: "41.2K",
+      highlights: [
+        { text: "🔴 BREAKING: Parliament session starts at 9PM", reactions: "🔔 12K" },
+        { text: "IMF tranche of $334M expected to be announced tonight", reactions: "👀 8.9K" },
+        { text: "Live stream link → youtube.com/supremetv", reactions: "▶️ 7.2K" },
+        { text: "Opposition leader responds: \"We demand transparency\"", reactions: "💬 4.1K" },
+      ],
+      postedAt: "10 min ago",
+      url: "#",
+    },
+  },
+  entertainment: {
+    eventTitle: "Sanda Eliya Season 3 Premiere",
+    syncedAt: "1 hr ago",
+    youtube: {
+      title: "Sanda Eliya Season 3 — Official Trailer | Supreme Entertainment",
+      thumb: "/images/samanmaliya.jpeg",
+      duration: "3:28",
+      views: "1.2M",
+      likes: "89K",
+      postedAt: "5 hrs ago",
+      url: "#",
+    },
+    facebook: {
+      caption: "The wait is OVER! 🌙✨ Sanda Eliya Season 3 premieres this Monday at 8:30PM only on Supreme TV. Tag the person you're watching this with! 👇 #SandaEliya #SupremeTV #Drama",
+      thumb: "/images/samanmaliya.jpeg",
+      reactions: { like: 12400, love: 8900, wow: 1200 },
+      comments: 4320,
+      shares: 7800,
+      postedAt: "4 hrs ago",
+      url: "#",
+    },
+    tiktok: {
+      caption: "She's BACK 😭❤️ Sanda Eliya S3 cast reunion BTS #SandaEliya #SupremeTV #TeleDrama #SriLanka",
+      thumb: "/images/ithin-ithin-kohomada.jpeg",
+      views: "4.8M",
+      likes: "420K",
+      shares: "91.2K",
+      postedAt: "3 hrs ago",
+      url: "#",
+    },
+    whatsapp: {
+      channelName: "Supreme Entertainment",
+      members: "18.7K",
+      highlights: [
+        { text: "🎬 Official trailer out NOW — 1.2M views already!", reactions: "🤩 9.4K" },
+        { text: "Monday 8:30PM — mark your calendars 🗓️", reactions: "❤️ 11.2K" },
+        { text: "First-look photos from the set dropped 👀", reactions: "📸 6.8K" },
+        { text: "Fan predictions thread — who comes back?", reactions: "💬 5.3K" },
+      ],
+      postedAt: "2 hrs ago",
+      url: "#",
+    },
+  },
+  business: {
+    eventTitle: "Colombo Stock Exchange 3-Year High",
+    syncedAt: "25 min ago",
+    youtube: {
+      title: "CSE Hits 14,000 Mark — What It Means for Investors | Supreme Business",
+      thumb: "/images/global-pulse.jpeg",
+      duration: "12:15",
+      views: "48K",
+      likes: "2.1K",
+      postedAt: "3 hrs ago",
+      url: "#",
+    },
+    facebook: {
+      caption: "The Colombo All Share Index crossed 14,000 today — a 3-year high. Central Bank signals more rate cuts ahead. Is now the time to invest? Our analysis team breaks it down 👇 #CSE #Investment #LKA #Economy",
+      thumb: "/images/global-pulse.jpeg",
+      reactions: { like: 1840, love: 210, wow: 890 },
+      comments: 340,
+      shares: 980,
+      postedAt: "2 hrs ago",
+      url: "#",
+    },
+    tiktok: {
+      caption: "Stock market at 3-year high — explained in 60 seconds 📈 #CSE #Finance #SriLanka #Investment",
+      thumb: "/images/global-pulse.jpeg",
+      views: "340K",
+      likes: "28K",
+      shares: "9.1K",
+      postedAt: "1 hr ago",
+      url: "#",
+    },
+    whatsapp: {
+      channelName: "Supreme Business Digest",
+      members: "8.9K",
+      highlights: [
+        { text: "📈 ASPI crosses 14,000 — first time since 2023", reactions: "🚀 3.2K" },
+        { text: "Top 5 gainers of the day: JKH, COMB, HNB, DIAL, NDB", reactions: "💹 2.8K" },
+        { text: "Full market analysis report → link in bio", reactions: "📊 1.9K" },
+        { text: "Central Bank: next rate decision on July 2nd", reactions: "🏦 1.4K" },
+      ],
+      postedAt: "20 min ago",
+      url: "#",
+    },
+  },
+};

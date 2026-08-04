@@ -1,0 +1,115 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background-color: #F5EFEF;
+    color: #2A0E2B;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .dark body {
+    background-color: #2A0E2B;
+    color: #F5EFEF;
+  }
+}
+
+@layer components {
+  /* Scrollbar styling */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .thin-scrollbar::-webkit-scrollbar {
+    height: 4px;
+  }
+  .thin-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .thin-scrollbar::-webkit-scrollbar-thumb {
+    background: #A37AA4;
+    border-radius: 99px;
+  }
+
+  /* Card hover lift */
+  .card-lift {
+    @apply transition-all duration-300 ease-out;
+  }
+  .card-lift:hover {
+    @apply -translate-y-1 shadow-card-hover;
+  }
+
+  /* Image zoom on hover */
+  .img-zoom {
+    @apply overflow-hidden;
+  }
+  .img-zoom img {
+    @apply transition-transform duration-500 ease-out;
+  }
+  .img-zoom:hover img {
+    @apply scale-105;
+  }
+
+  /* Category pill */
+  .cat-pill {
+    @apply inline-block text-xs font-heading font-700 uppercase tracking-widest px-2.5 py-1 rounded-full;
+  }
+
+  /* Breaking badge animation */
+  @keyframes breakingPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(124,58,237,0.5); }
+    50%       { box-shadow: 0 0 0 6px rgba(124,58,237,0); }
+  }
+  .breaking-badge {
+    animation: breakingPulse 2s ease-in-out infinite;
+  }
+
+  /* Gradient overlay for hero cards */
+  .hero-gradient {
+    background: linear-gradient(
+      to top,
+      rgba(42, 14, 43, 0.96) 0%,
+      rgba(42, 14, 43, 0.6) 45%,
+      rgba(42, 14, 43, 0) 100%
+    );
+  }
+
+  /* Animated underline for nav links */
+  .nav-link {
+    @apply relative text-sm font-body font-500 tracking-wide transition-colors duration-200;
+  }
+  .nav-link::after {
+    content: '';
+    @apply absolute -bottom-0.5 left-0 h-0.5 w-0 bg-supreme-vivid transition-all duration-300 ease-out rounded-full;
+  }
+  .nav-link:hover::after,
+  .nav-link.active::after {
+    @apply w-full;
+  }
+}
+
+@layer utilities {
+  .font-700 { font-weight: 700; }
+  .font-800 { font-weight: 800; }
+  .font-600 { font-weight: 600; }
+  .font-500 { font-weight: 500; }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+}

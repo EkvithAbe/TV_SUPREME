@@ -1,0 +1,12 @@
+.DS_Store
+.next
+.npm-cache
+node_modules
+node_modules.*
+.env
+.env.local
+coverage
+dist
+*.log
+package-lock.vite-backup.json
+tsconfig.tsbuildinfo

@@ -1,0 +1,112 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-x: clip;
+  background: #ffffff;
+  color: #101820;
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+::selection {
+  background: rgba(193, 61, 42, 0.18);
+  color: #101820;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+.broadcast-shell {
+  position: relative;
+  isolation: isolate;
+}
+
+.broadcast-shell::before {
+  content: none;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -2;
+}
+
+.broadcast-shell::after {
+  content: none;
+  position: absolute;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.surface-card {
+  @apply rounded-[22px] border border-supreme-ink/10 bg-white shadow-[0_14px_34px_rgba(16,24,32,0.06)];
+}
+
+.surface-card-dark {
+  @apply rounded-[22px] border border-supreme-ink/10 bg-white text-supreme-ink shadow-[0_14px_34px_rgba(16,24,32,0.06)];
+}
+
+.section-wrap {
+  @apply mx-auto max-w-7xl px-5 sm:px-8 lg:px-12;
+}
+
+.eyebrow {
+  @apply text-[11px] font-heading font-bold uppercase tracking-[0.24em] text-supreme-vivid;
+}
+
+.section-title {
+  @apply font-heading text-3xl font-extrabold tracking-tight text-supreme-ink sm:text-4xl;
+}
+
+.section-copy {
+  @apply max-w-2xl text-sm leading-7 text-supreme-mid sm:text-base;
+}
+
+.link-pill {
+  @apply inline-flex items-center gap-2 rounded-full border border-supreme-ink/10 bg-white px-5 py-3 text-sm font-heading font-semibold text-supreme-ink transition hover:border-[#4f239a] hover:text-[#4f239a];
+}
+
+.primary-pill {
+  @apply inline-flex items-center gap-2 rounded-full bg-[#4f239a] px-5 py-3 text-sm font-heading font-semibold text-white shadow-[0_12px_26px_rgba(79,35,154,0.18)] transition hover:bg-[#3b1b74];
+}
+
+.data-pill {
+  @apply inline-flex items-center gap-2 rounded-full border border-supreme-ink/10 bg-supreme-mist px-4 py-2 text-[11px] font-heading font-semibold uppercase tracking-[0.18em] text-supreme-mid;
+}
+
+.metric-card {
+  @apply rounded-[20px] border border-supreme-ink/10 bg-supreme-mist p-5;
+}
+
+.ink-card {
+  @apply rounded-[24px] border border-supreme-ink/10 bg-supreme-mist text-supreme-ink shadow-card;
+}
