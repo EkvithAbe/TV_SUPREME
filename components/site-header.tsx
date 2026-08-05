@@ -85,8 +85,8 @@ export function SiteHeader() {
     <header
       className={
         isOverlayHomeHeader
-          ? `fixed inset-x-0 top-0 z-50 border-b border-white/12 bg-[#171027]/82 shadow-[0_6px_20px_rgba(10,6,20,0.16)] backdrop-blur-sm transition-transform duration-300 ${headerOffsetClass}`
-          : `${isHome ? "fixed" : "sticky"} inset-x-0 top-0 z-50 border-b border-[#e8e1f1] bg-white/98 shadow-[0_6px_18px_rgba(33,24,51,0.07)] backdrop-blur-sm transition-transform duration-300 ${headerOffsetClass}`
+          ? `site-header-home-overlay fixed inset-x-0 top-0 z-50 border-b border-white/16 transition-[transform,background-color,box-shadow,backdrop-filter] duration-500 ${headerOffsetClass}`
+          : `${isHome ? "fixed" : "sticky"} inset-x-0 top-0 z-50 border-b border-[#e8e1f1] bg-white/98 shadow-[0_6px_18px_rgba(33,24,51,0.07)] backdrop-blur-md transition-[transform,background-color,box-shadow,backdrop-filter] duration-500 ${headerOffsetClass}`
       }
     >
       <div className="mx-auto max-w-[1200px] px-5 py-3 sm:px-8 sm:py-3.5 lg:px-10">
@@ -95,7 +95,9 @@ export function SiteHeader() {
             <img
               src="/images/tv-supreme-logo-final.png"
               alt="TV Supreme"
-              className="h-16 w-16 shrink-0 object-contain sm:h-[4.5rem] sm:w-[4.5rem]"
+              className={`h-16 w-16 shrink-0 object-contain sm:h-[4.5rem] sm:w-[4.5rem] ${
+                isOverlayHomeHeader ? "drop-shadow-[0_3px_12px_rgba(0,0,0,0.48)]" : ""
+              }`}
             />
           </Link>
 
@@ -114,12 +116,12 @@ export function SiteHeader() {
                       isActive
                         ? `relative pb-1 font-heading font-semibold after:absolute after:bottom-[-0.45rem] after:left-0 after:h-[2px] after:w-full after:rounded-full after:bg-[#f02e9b] ${
                             isOverlayHomeHeader
-                              ? "text-white [text-shadow:0_1px_10px_rgba(0,0,0,0.28)]"
+                              ? "text-white [text-shadow:0_2px_12px_rgba(0,0,0,0.72)]"
                               : "text-[#242938]"
                           }`
                         : `pb-1 font-heading font-medium transition ${
                             isOverlayHomeHeader
-                              ? "text-[#e7ebf3] hover:text-white [text-shadow:0_1px_10px_rgba(0,0,0,0.24)]"
+                              ? "text-white/85 hover:text-white [text-shadow:0_2px_12px_rgba(0,0,0,0.72)]"
                               : "text-[#525866] hover:text-[#242938]"
                           }`
                     }
