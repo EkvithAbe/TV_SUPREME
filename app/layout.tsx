@@ -4,6 +4,7 @@ import { Manrope } from "next/font/google";
 import { LivePlayer } from "@/components/live-player";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { SiteSplashScreen } from "@/components/site-splash-screen";
 
 import "./globals.css";
 
@@ -49,6 +50,7 @@ export default function RootLayout({
     >
       <body className="bg-supreme-paper font-body text-supreme-ink antialiased">
         <div className="broadcast-shell min-h-screen">
+          <SiteSplashScreen />
           <div aria-hidden="true" className="site-broadcast-backdrop" />
           <SiteHeader />
           <main className="relative z-10">{children}</main>
