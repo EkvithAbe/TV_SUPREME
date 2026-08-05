@@ -4,6 +4,7 @@
 .openai
 coverage
 dist
+images
 node_modules
 node_modules.*
 package-lock.vite-backup.json
