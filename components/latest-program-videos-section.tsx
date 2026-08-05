@@ -105,7 +105,10 @@ export function LatestProgramVideosSection({
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2 xl:auto-rows-[13rem] xl:grid-cols-4">
-            <article className="flex min-h-[20rem] flex-col justify-between rounded-[24px] border border-[#e9e1f2] bg-[#faf8fd] p-5 text-supreme-ink shadow-[0_14px_32px_rgba(33,24,51,0.07)] sm:min-h-[22rem] sm:p-6 xl:row-span-2 xl:min-h-0">
+            <article
+              className="latest-episode-tile flex min-h-[20rem] flex-col justify-between rounded-[24px] border border-[#e9e1f2] bg-[#faf8fd] p-5 text-supreme-ink shadow-[0_14px_32px_rgba(33,24,51,0.07)] sm:min-h-[22rem] sm:p-6 xl:row-span-2 xl:min-h-0"
+              style={{ animationDelay: "-1.4s", animationDuration: "9.4s" }}
+            >
               <div>
                 <p className="eyebrow">Watch now</p>
                 <h3 className="mt-3 max-w-[14rem] font-heading text-[2.2rem] font-extrabold leading-[0.96] tracking-[-0.045em] text-supreme-ink sm:text-[2.65rem]">
@@ -137,42 +140,52 @@ export function LatestProgramVideosSection({
             </article>
 
             {visibleVideos.map((video, index) => (
-              <button
+              <div
                 key={video.id}
-                type="button"
-                onClick={() => setOpenVideoId(video.id)}
-                className={`group relative min-h-[17rem] overflow-hidden rounded-[24px] text-left shadow-[0_14px_30px_rgba(18,10,31,0.18)] transition duration-300 hover:-translate-y-1 ${
+                className={`latest-episode-tile ${
+                  index % 2 === 1 ? "latest-episode-tile-reverse" : ""
+                } ${
                   collageSpanClasses[index] ?? ""
-                } xl:min-h-0`}
+                }`}
+                style={{
+                  animationDelay: `${-0.9 * (index + 1)}s`,
+                  animationDuration: `${8.2 + (index % 3) * 1.1}s`
+                }}
               >
-                <img
-                  src={video.thumbnailUrl}
-                  alt={video.videoTitle}
-                  className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,5,0.12)_0%,rgba(5,5,5,0.22)_38%,rgba(5,5,5,0.84)_100%)]" />
+                <button
+                  type="button"
+                  onClick={() => setOpenVideoId(video.id)}
+                  className="group relative min-h-[17rem] w-full overflow-hidden rounded-[24px] text-left shadow-[0_14px_30px_rgba(18,10,31,0.18)] transition duration-300 hover:scale-[1.018] hover:shadow-[0_20px_42px_rgba(18,10,31,0.24)] xl:h-full xl:min-h-0"
+                >
+                  <img
+                    src={video.thumbnailUrl}
+                    alt={video.videoTitle}
+                    className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,5,0.12)_0%,rgba(5,5,5,0.22)_38%,rgba(5,5,5,0.84)_100%)]" />
 
-                <div className="relative flex h-full flex-col justify-between p-4 sm:p-5">
-                  <div className="flex items-start justify-between gap-3">
-                    <span className="rounded-full border border-white/14 bg-black/28 px-3 py-1 text-[10px] font-heading font-bold uppercase tracking-[0.16em] text-white backdrop-blur-sm">
-                      {video.isLive ? "Live" : video.categoryName}
-                    </span>
+                  <div className="relative flex h-full min-h-[17rem] flex-col justify-between p-4 sm:p-5 xl:min-h-0">
+                    <div className="flex items-start justify-between gap-3">
+                      <span className="rounded-full border border-white/14 bg-black/28 px-3 py-1 text-[10px] font-heading font-bold uppercase tracking-[0.16em] text-white backdrop-blur-sm">
+                        {video.isLive ? "Live" : video.categoryName}
+                      </span>
 
-                    <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/16 text-white backdrop-blur-sm transition group-hover:bg-white/26">
-                      <Play className="ml-0.5 h-4 w-4 fill-current" />
-                    </span>
+                      <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/16 text-white backdrop-blur-sm transition group-hover:bg-white/26">
+                        <Play className="ml-0.5 h-4 w-4 fill-current" />
+                      </span>
+                    </div>
+
+                    <div>
+                      <p className="text-[11px] font-heading font-bold uppercase tracking-[0.18em] text-white/72">
+                        {video.programTitle}
+                      </p>
+                      <h3 className="mt-2 max-w-[15rem] line-clamp-2 font-heading text-xl font-extrabold leading-[1.08] text-white sm:text-[1.45rem]">
+                        {video.videoTitle}
+                      </h3>
+                    </div>
                   </div>
-
-                  <div>
-                    <p className="text-[11px] font-heading font-bold uppercase tracking-[0.18em] text-white/72">
-                      {video.programTitle}
-                    </p>
-                    <h3 className="mt-2 max-w-[15rem] line-clamp-2 font-heading text-xl font-extrabold leading-[1.08] text-white sm:text-[1.45rem]">
-                      {video.videoTitle}
-                    </h3>
-                  </div>
-                </div>
-              </button>
+                </button>
+              </div>
             ))}
           </div>
         </div>
