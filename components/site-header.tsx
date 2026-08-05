@@ -21,7 +21,6 @@ export function SiteHeader() {
   const lastYRef = useRef(0);
   const [isHidden, setIsHidden] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isHomeHeaderSolid, setIsHomeHeaderSolid] = useState(false);
 
   useEffect(() => {
     let frame = 0;
@@ -32,11 +31,8 @@ export function SiteHeader() {
 
       if (isHome) {
         setIsHidden(false);
-        setIsHomeHeaderSolid(currentY > Math.max(window.innerHeight - 140, 320));
       } else {
         const delta = currentY - lastYRef.current;
-
-        setIsHomeHeaderSolid(false);
 
         if (currentY <= 24) {
           setIsHidden(false);
@@ -79,12 +75,12 @@ export function SiteHeader() {
       : isHidden
         ? "-translate-y-full"
         : "translate-y-0";
-  const isOverlayHomeHeader = isHome && !isHomeHeaderSolid;
+  const usesDarkHomeHeader = isHome;
 
   return (
     <header
       className={
-        isOverlayHomeHeader
+        usesDarkHomeHeader
           ? `site-header-home-overlay fixed inset-x-0 top-0 z-50 border-b border-white/16 transition-[transform,background-color,box-shadow,backdrop-filter] duration-500 ${headerOffsetClass}`
           : `${isHome ? "fixed" : "sticky"} inset-x-0 top-0 z-50 border-b border-[#e8e1f1] bg-white/98 shadow-[0_6px_18px_rgba(33,24,51,0.07)] backdrop-blur-md transition-[transform,background-color,box-shadow,backdrop-filter] duration-500 ${headerOffsetClass}`
       }
@@ -96,7 +92,7 @@ export function SiteHeader() {
               src="/images/tv-supreme-logo-final.png"
               alt="TV Supreme"
               className={`h-16 w-16 shrink-0 object-contain sm:h-[4.5rem] sm:w-[4.5rem] ${
-                isOverlayHomeHeader ? "drop-shadow-[0_3px_12px_rgba(0,0,0,0.48)]" : ""
+                usesDarkHomeHeader ? "drop-shadow-[0_3px_12px_rgba(0,0,0,0.48)]" : ""
               }`}
             />
           </Link>
@@ -115,13 +111,13 @@ export function SiteHeader() {
                     className={
                       isActive
                         ? `relative pb-1 font-heading font-semibold after:absolute after:bottom-[-0.45rem] after:left-0 after:h-[2px] after:w-full after:rounded-full after:bg-[#f02e9b] ${
-                            isOverlayHomeHeader
-                              ? "text-white [text-shadow:0_2px_12px_rgba(0,0,0,0.72)]"
+                            usesDarkHomeHeader
+                              ? "text-white [text-shadow:0_2px_12px_rgba(0,0,0,0.78)]"
                               : "text-[#242938]"
                           }`
                         : `pb-1 font-heading font-medium transition ${
-                            isOverlayHomeHeader
-                              ? "text-white/85 hover:text-white [text-shadow:0_2px_12px_rgba(0,0,0,0.72)]"
+                            usesDarkHomeHeader
+                              ? "font-semibold text-white/90 hover:text-[#f7a6ce] [text-shadow:0_2px_12px_rgba(0,0,0,0.78)]"
                               : "text-[#525866] hover:text-[#242938]"
                           }`
                     }
@@ -134,7 +130,7 @@ export function SiteHeader() {
 
             <Link
               href="/live"
-              className="inline-flex w-fit items-center gap-2 rounded-full bg-[#5d2ab9] px-5 py-2.5 font-heading text-sm font-semibold text-white shadow-[0_8px_18px_rgba(93,42,185,0.2)] transition hover:bg-[#432085]"
+              className="inline-flex w-fit items-center gap-2 rounded-full bg-[#ef2b91] px-5 py-2.5 font-heading text-sm font-semibold text-white shadow-[0_8px_18px_rgba(239,43,145,0.24)] transition hover:bg-[#d61c7d]"
             >
               <Play className="h-4 w-4 fill-current" />
               Watch Live
@@ -145,7 +141,7 @@ export function SiteHeader() {
             type="button"
             onClick={() => setIsMenuOpen((currentValue) => !currentValue)}
             className={
-              isOverlayHomeHeader
+              usesDarkHomeHeader
                 ? "inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition hover:border-white/30 lg:hidden"
                 : "inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#e5dfed] bg-white text-supreme-ink transition hover:border-[#cfc2e3] lg:hidden"
             }
