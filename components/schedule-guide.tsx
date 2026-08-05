@@ -97,10 +97,8 @@ export function ScheduleGuide({
     <section
       className="relative overflow-hidden pb-24 pt-8 lg:pt-12"
     >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(242,38,134,0.10),transparent_26%),radial-gradient(circle_at_top_right,rgba(117,53,170,0.12),transparent_28%),radial-gradient(circle_at_bottom,rgba(255,202,30,0.08),transparent_24%)]" />
-
       <div className="section-wrap relative">
-        <div className="rounded-[28px] border border-[#f2e4f7] bg-white/90 p-4 shadow-[0_16px_36px_rgba(91,42,146,0.07)] sm:p-6 lg:p-7">
+        <div>
           <div className="grid gap-4">
             <div className="grid gap-4 xl:grid-cols-[minmax(0,1.45fr)_22rem] xl:items-stretch">
               <aside className="relative overflow-hidden rounded-[26px] bg-[linear-gradient(135deg,#7f35be_0%,#6130a2_58%,#421c76_100%)] p-5 text-white shadow-[0_14px_32px_rgba(87,34,140,0.15)] sm:p-7">
@@ -299,7 +297,7 @@ export function ScheduleGuide({
 
           <section
             id="schedule-list"
-            className="mt-6 rounded-[26px] border border-[#f1e4f8] bg-white/90 p-3 shadow-[0_14px_30px_rgba(96,44,150,0.05)] sm:p-4"
+            className="mt-6"
           >
             <div className="grid gap-3 md:grid-cols-4 xl:grid-cols-7">
               {days.map((day) => {
@@ -341,7 +339,7 @@ export function ScheduleGuide({
               })}
             </div>
 
-            <div className="mt-5 rounded-[24px] border border-[#f3e8fa] bg-[linear-gradient(180deg,#fffdfd_0%,#fcf8ff_100%)] p-4 sm:p-6">
+            <div className="mt-5 rounded-[24px] border border-[#f3e8fa]/70 p-4 sm:p-6">
               <div className="flex flex-wrap items-end justify-between gap-4 border-b border-[#f3e8fa] pb-5">
                 <div>
                   <p className="text-[11px] font-semibold uppercase tracking-[0.34em] text-[#ac8bc9]">
