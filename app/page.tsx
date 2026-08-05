@@ -1,6 +1,5 @@
 import { HomeEventsSection } from "@/components/home-events-section";
 import { HomeHeroBanner } from "@/components/home-hero-banner";
-import { HomeFloatingObject } from "@/components/home-floating-object";
 import { LatestProgramVideosSection } from "@/components/latest-program-videos-section";
 import { HomeProgramsParallax } from "@/components/home-programs-parallax";
 import { TrendingProgramsShowcase } from "@/components/trending-programs-showcase";
@@ -343,8 +342,6 @@ export default async function HomePage() {
   return (
     <div className="relative isolate overflow-x-clip">
       <div className="pointer-events-none fixed inset-0 z-0 bg-white" />
-
-      <HomeFloatingObject />
 
       <div className="relative z-20">
         <HomeHeroBanner slides={heroSlides} />
