@@ -84,32 +84,32 @@ export function HomeHeroBanner({ slides }: HomeHeroBannerProps) {
           />
         ))}
 
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(12,18,28,0.82)_0%,rgba(12,18,28,0.44)_48%,rgba(12,18,28,0.68)_100%)]" />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.02)_0%,rgba(12,18,28,0.12)_42%,rgba(12,18,28,0.58)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(17,10,31,0.86)_0%,rgba(17,10,31,0.48)_51%,rgba(17,10,31,0.72)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,4,16,0.14)_0%,rgba(7,4,16,0.18)_42%,rgba(7,4,16,0.72)_100%)]" />
 
         <div className="relative flex min-h-[100svh] items-end">
-          <div className="section-wrap flex w-full items-end pb-20 pt-28 sm:pb-24 sm:pt-32 lg:pb-28 lg:pt-36">
-            <div className="max-w-3xl rounded-[28px] border border-white/15 bg-white/10 p-6 text-white backdrop-blur-md sm:p-8 lg:p-10">
-              <p className="text-[11px] font-heading font-bold uppercase tracking-[0.24em] text-white/72">
+          <div className="section-wrap flex w-full items-end pb-20 pt-28 sm:pb-24 sm:pt-32 lg:pb-24 lg:pt-32">
+            <div className="max-w-2xl rounded-[24px] border border-white/14 bg-[#130c24]/48 p-5 text-white shadow-[0_14px_34px_rgba(7,4,16,0.16)] backdrop-blur-sm sm:p-7 lg:p-8">
+              <p className="text-[11px] font-heading font-bold uppercase tracking-[0.2em] text-white/72">
                 {activeSlide.label}
               </p>
-              <h1 className="mt-4 text-balance font-heading text-[2.4rem] font-extrabold leading-[0.98] tracking-[-0.05em] text-white sm:text-[3.6rem] lg:text-[5.4rem]">
+              <h1 className="mt-3 text-balance font-heading text-[2.25rem] font-extrabold leading-[0.98] tracking-[-0.045em] text-white sm:text-[3.25rem] lg:text-[4.25rem]">
                 {activeSlide.title}
               </h1>
-              <p className="mt-4 max-w-2xl text-sm leading-7 text-white/82 sm:text-lg sm:leading-8">
+              <p className="mt-4 max-w-xl text-sm leading-7 text-white/84 sm:text-base sm:leading-8">
                 {activeSlide.summary}
               </p>
 
-              <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
                 <Link
                   href={activeSlide.href}
-                  className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 font-heading text-sm font-semibold text-[#241340] transition hover:bg-[#f3ebff]"
+                  className="inline-flex min-h-11 items-center justify-center rounded-full bg-[#ef2b91] px-5 py-3 font-heading text-sm font-semibold text-white shadow-[0_8px_18px_rgba(239,43,145,0.24)] transition hover:-translate-y-0.5 hover:bg-[#d61c7d]"
                 >
-                  Open Feature
+                  Explore Feature
                 </Link>
                 <Link
                   href="/live"
-                  className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/10 px-6 py-3 font-heading text-sm font-semibold text-white transition hover:bg-white/16"
+                  className="inline-flex min-h-11 items-center justify-center rounded-full border border-white/28 bg-white/8 px-5 py-3 font-heading text-sm font-semibold text-white transition hover:bg-white/16"
                 >
                   Watch Live
                 </Link>
@@ -120,7 +120,7 @@ export function HomeHeroBanner({ slides }: HomeHeroBannerProps) {
 
         {heroSlides.length > 1 ? (
           <>
-            <div className="absolute bottom-5 right-5 flex items-center gap-2 sm:bottom-6 sm:right-6 lg:bottom-8 lg:right-8">
+            <div className="absolute bottom-5 right-5 flex items-center gap-2 sm:bottom-6 sm:right-8 lg:bottom-7 lg:right-10">
               <button
                 type="button"
                 onClick={() => {
@@ -128,7 +128,7 @@ export function HomeHeroBanner({ slides }: HomeHeroBannerProps) {
                     (currentIndex - 1 + heroSlides.length) % heroSlides.length
                   );
                 }}
-                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-black/25 text-white backdrop-blur transition hover:bg-black/40"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/24 bg-black/20 text-white transition hover:bg-black/42"
                 aria-label="Previous slide"
               >
                 <ChevronLeft className="h-5 w-5" />
@@ -141,14 +141,14 @@ export function HomeHeroBanner({ slides }: HomeHeroBannerProps) {
                     (currentIndex + 1) % heroSlides.length
                   );
                 }}
-                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-black/25 text-white backdrop-blur transition hover:bg-black/40"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/24 bg-black/20 text-white transition hover:bg-black/42"
                 aria-label="Next slide"
               >
                 <ChevronRight className="h-5 w-5" />
               </button>
             </div>
 
-            <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 items-center gap-2 sm:bottom-6 lg:bottom-8">
+            <div className="absolute bottom-6 left-1/2 flex -translate-x-1/2 items-center gap-2 sm:bottom-7">
               {heroSlides.map((slide, index) => (
                 <button
                   key={slide.id}

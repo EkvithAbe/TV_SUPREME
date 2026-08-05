@@ -59,11 +59,11 @@ export function HomeFloatingObject() {
       );
       glow.style.transform =
         `translate3d(${glowX}px, ${glowY}px, 0) scale(${1 + Math.min(scrollY / 2400, 0.12)})`;
-      glow.style.opacity = "0.82";
+      glow.style.opacity = "0.42";
 
       object.style.transform =
         `translate3d(${objectX}px, ${objectY}px, 0) perspective(1400px) rotateX(${depthTiltX}deg) rotateY(${depthTiltY}deg) rotateZ(${turn * 1.8 - 2}deg) scale(${1 - Math.min(scrollY / 5600, 0.04)})`;
-      object.style.opacity = "0.94";
+      object.style.opacity = "0.84";
     };
 
     const render = () => {
@@ -92,8 +92,8 @@ export function HomeFloatingObject() {
     <div aria-hidden className="pointer-events-none fixed inset-0 z-10 hidden overflow-hidden lg:block">
       <div
         ref={glowRef}
-        className="absolute left-0 top-0 h-28 w-28 rounded-full bg-[radial-gradient(circle,rgba(245,73,172,0.52),rgba(124,62,212,0.16),transparent_72%)] blur-2xl will-change-transform will-change-opacity xl:h-36 xl:w-36"
-        style={{ opacity: 0.82, transform: "translate3d(56px, 118px, 0) scale(1)" }}
+        className="absolute left-0 top-0 h-24 w-24 rounded-full bg-[radial-gradient(circle,rgba(245,73,172,0.42),rgba(124,62,212,0.12),transparent_72%)] blur-xl will-change-transform will-change-opacity xl:h-28 xl:w-28"
+        style={{ opacity: 0.42, transform: "translate3d(56px, 118px, 0) scale(1)" }}
       />
 
       <div
@@ -101,8 +101,8 @@ export function HomeFloatingObject() {
         className="absolute left-0 top-0 w-[15rem] will-change-transform will-change-opacity xl:w-[19rem]"
         style={{
           filter:
-            "drop-shadow(0 30px 58px rgba(89, 36, 173, 0.2)) drop-shadow(0 10px 22px rgba(9, 14, 30, 0.12))",
-          opacity: 0.94,
+            "drop-shadow(0 18px 36px rgba(89, 36, 173, 0.14)) drop-shadow(0 6px 14px rgba(9, 14, 30, 0.08))",
+          opacity: 0.84,
           transform:
             "translate3d(32px, 128px, 0) perspective(1400px) rotateX(4deg) rotateY(-5deg) rotateZ(-9deg) scale(1)",
           transformOrigin: "center center"

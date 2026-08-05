@@ -124,11 +124,11 @@ export function TrendingProgramsShowcase({
       };
     }
 
-    const translateX = difference * 75;
-    const translateZ = -absoluteDifference * 220;
-    const rotateY = difference * -8;
-    const scale = 1 - absoluteDifference * 0.14;
-    const opacity = 1 - absoluteDifference * 0.26;
+    const translateX = difference * 82;
+    const translateZ = -absoluteDifference * 165;
+    const rotateY = difference * -6;
+    const scale = 1 - absoluteDifference * 0.1;
+    const opacity = 1 - absoluteDifference * 0.18;
 
     return {
       transform: `
@@ -145,19 +145,22 @@ export function TrendingProgramsShowcase({
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-7">
       <div className="flex items-center justify-between gap-4">
-        <div>
+        <div className="max-w-2xl">
           <p className="eyebrow">Programs</p>
-          <h2 className="mt-3 font-heading text-3xl font-extrabold tracking-tight text-supreme-ink sm:text-4xl lg:text-5xl">
-            Current programs with matched channel video.
+          <h2 className="section-title mt-3">
+            Featured Programs
           </h2>
+          <p className="section-copy mt-3">
+            Explore the shows, stories, and episodes currently defining TV Supreme.
+          </p>
         </div>
       </div>
 
-      <div className="overflow-hidden rounded-[40px] border border-supreme-ink/10 bg-[#f3f3f3] px-3 py-6 shadow-[0_24px_70px_rgba(16,24,32,0.08)] sm:px-6 sm:py-8 lg:px-10">
+      <div className="relative py-2 sm:py-4">
         <div
-          className="relative flex h-[32rem] touch-pan-y items-center justify-center overflow-hidden sm:h-[38rem]"
+          className="relative flex h-[29rem] touch-pan-y items-center justify-center overflow-visible sm:h-[33rem]"
           style={{ perspective: "1800px" }}
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
@@ -191,7 +194,7 @@ export function TrendingProgramsShowcase({
             type="button"
             onClick={handlePrevious}
             aria-label="Previous program"
-            className="absolute left-1 top-1/2 z-50 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-black/10 bg-white text-black shadow-lg transition-all duration-300 hover:scale-110 hover:bg-black hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-black sm:left-4 sm:h-12 sm:w-12 lg:left-10"
+            className="absolute left-0 top-1/2 z-50 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-[#d9d0e4] bg-white text-[#352155] shadow-[0_8px_20px_rgba(33,24,51,0.12)] transition duration-200 hover:-translate-y-1/2 hover:bg-[#5d2ab9] hover:text-white sm:-left-3 sm:h-11 sm:w-11"
           >
             <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6" />
           </button>
@@ -200,7 +203,7 @@ export function TrendingProgramsShowcase({
             type="button"
             onClick={handleNext}
             aria-label="Next program"
-            className="absolute right-1 top-1/2 z-50 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-black/10 bg-white text-black shadow-lg transition-all duration-300 hover:scale-110 hover:bg-black hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-black sm:right-4 sm:h-12 sm:w-12 lg:right-10"
+            className="absolute right-0 top-1/2 z-50 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-[#d9d0e4] bg-white text-[#352155] shadow-[0_8px_20px_rgba(33,24,51,0.12)] transition duration-200 hover:-translate-y-1/2 hover:bg-[#5d2ab9] hover:text-white sm:-right-3 sm:h-11 sm:w-11"
           >
             <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6" />
           </button>
@@ -220,10 +223,10 @@ export function TrendingProgramsShowcase({
                     className="pointer-events-auto absolute left-0 top-0 cursor-pointer transition-all duration-500 ease-out"
                     style={{
                       ...getCardStyle(index),
-                      width: "clamp(250px, 80vw, 360px)",
-                      height: "clamp(420px, 126vw, 540px)",
-                      marginLeft: "calc(clamp(250px, 80vw, 360px) / -2)",
-                      marginTop: "calc(clamp(420px, 126vw, 540px) / -2)",
+                      width: "clamp(238px, 70vw, 350px)",
+                      height: "clamp(400px, 112vw, 500px)",
+                      marginLeft: "calc(clamp(238px, 70vw, 350px) / -2)",
+                      marginTop: "calc(clamp(400px, 112vw, 500px) / -2)",
                       transformStyle: "preserve-3d"
                     }}
                     onClick={() => setCurrentIndex(index)}
@@ -231,11 +234,11 @@ export function TrendingProgramsShowcase({
                     aria-label={program.title}
                   >
                     <div
-                      className={`group relative h-full w-full overflow-hidden rounded-[32px] bg-white shadow-[0_28px_70px_rgba(0,0,0,0.16)] transition-all duration-500 ${
-                        isActive ? "ring-1 ring-black/5" : "brightness-[0.9]"
+                      className={`group relative h-full w-full overflow-hidden rounded-[26px] border border-white/70 bg-white shadow-[0_18px_42px_rgba(33,24,51,0.16)] transition-all duration-500 ${
+                        isActive ? "ring-1 ring-[#5d2ab9]/12" : "brightness-[0.94]"
                       }`}
                     >
-                      <div className="relative h-[48%] overflow-hidden bg-neutral-900">
+                      <div className="relative h-[56%] overflow-hidden bg-neutral-900">
                         <img
                           src={imageUrl}
                           alt={program.title}
@@ -243,33 +246,33 @@ export function TrendingProgramsShowcase({
                           className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                         />
 
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/36 via-black/0 to-transparent" />
 
                         <div className="absolute right-4 top-4 flex items-center gap-2 text-white sm:right-5 sm:top-5">
-                          <span className="rounded-full bg-black/45 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.25em] sm:text-xs">
+                          <span className="rounded-full bg-black/48 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] sm:text-xs">
                             {videoCount} {videoCount === 1 ? "Video" : "Videos"}
                           </span>
                         </div>
                       </div>
 
-                      <div className="flex h-[52%] flex-col bg-white px-6 pb-6 pt-7 sm:px-8 sm:pb-8 sm:pt-9">
-                        <h3 className="max-w-[290px] font-heading text-[2rem] font-black leading-[0.98] tracking-[-0.05em] text-[#11171d] sm:text-[2.7rem]">
+                      <div className="flex h-[44%] flex-col bg-white px-5 pb-5 pt-5 sm:px-6 sm:pb-6 sm:pt-6">
+                        <h3 className="max-w-[290px] line-clamp-2 font-heading text-[1.65rem] font-extrabold leading-[1.02] tracking-[-0.04em] text-[#211833] sm:text-[2rem]">
                           {program.title}
                         </h3>
 
-                        <p className="mt-4 line-clamp-3 text-sm leading-7 text-supreme-mid">
+                        <p className="mt-3 line-clamp-2 text-sm leading-6 text-supreme-mid">
                           {program.summary}
                         </p>
 
                         <div className="mt-auto flex items-end justify-between gap-4">
-                          <p className="text-[11px] font-bold uppercase tracking-[0.35em] text-neutral-500 sm:text-xs sm:tracking-[0.42em]">
+                          <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-500 sm:text-[11px]">
                             {program.categoryName ?? "Program"}
                           </p>
 
                           <button
                             type="button"
                             aria-label={`View ${program.title}`}
-                            className={`flex h-11 w-11 items-center justify-center rounded-full bg-black text-white transition-all duration-300 hover:scale-110 hover:bg-neutral-700 ${
+                            className={`flex h-10 w-10 items-center justify-center rounded-full bg-[#5d2ab9] text-white transition-all duration-300 hover:scale-105 hover:bg-[#432085] ${
                               isActive
                                 ? "translate-x-0 opacity-100"
                                 : "translate-x-2 opacity-0"
@@ -297,8 +300,8 @@ export function TrendingProgramsShowcase({
           </div>
         </div>
 
-        <div className="mt-4 flex items-center justify-center gap-4 sm:gap-5">
-          <span className="min-w-8 text-sm font-bold text-neutral-900">
+        <div className="mt-5 flex items-center justify-center gap-4 sm:gap-5">
+          <span className="min-w-8 text-sm font-bold text-[#352155]">
             {String(currentIndex + 1).padStart(2, "0")}
           </span>
 
@@ -311,8 +314,8 @@ export function TrendingProgramsShowcase({
                 aria-label={`Show ${program.title}`}
                 className={`h-1.5 rounded-full transition-all duration-300 ${
                   index === currentIndex
-                    ? "w-10 bg-black"
-                    : "w-3 bg-black/20 hover:bg-black/40"
+                    ? "w-9 bg-[#5d2ab9]"
+                    : "w-3 bg-[#5d2ab9]/22 hover:bg-[#5d2ab9]/45"
                 }`}
               />
             ))}

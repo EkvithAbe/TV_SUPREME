@@ -4,6 +4,7 @@ import {
   SOCIAL_PLATFORM,
   SYNC_STATUS
 } from "@/lib/content-model";
+import { scheduleDefinitions } from "@/lib/schedule-definitions";
 
 import type {
   ArticleRecord,
@@ -159,134 +160,35 @@ export const staticPrograms: ProgramWithCategory[] = [
 
 const programMap = new Map(staticPrograms.map((program) => [program.slug, program]));
 
-export const staticScheduleSlots: ScheduleSlotWithProgram[] = [
-  {
-    id: "supreme-prime-time-news-1-1140",
-    title: "Supreme Prime Time News",
-    dayOfWeek: 1,
-    startMinutes: 19 * 60,
-    endMinutes: 19 * 60 + 30,
-    timezone: "Asia/Colombo",
-    isLiveWindow: true,
-    notes: "Primary nightly bulletin window",
-    program: programMap.get("supreme-prime-time-news")
-      ? {
-          id: programMap.get("supreme-prime-time-news")!.id,
-          title: programMap.get("supreme-prime-time-news")!.title,
-          slug: programMap.get("supreme-prime-time-news")!.slug,
-          imageUrl: programMap.get("supreme-prime-time-news")!.imageUrl,
-          category: programMap.get("supreme-prime-time-news")!.category
-        }
-      : null,
-    createdAt,
-    updatedAt: createdAt
-  },
-  {
-    id: "janahada-1-1200",
-    title: "Janahada",
-    dayOfWeek: 1,
-    startMinutes: 20 * 60,
-    endMinutes: 21 * 60,
-    timezone: "Asia/Colombo",
-    isLiveWindow: false,
-    notes: "Current affairs discussion",
-    program: programMap.get("janahada")
-      ? {
-          id: programMap.get("janahada")!.id,
-          title: programMap.get("janahada")!.title,
-          slug: programMap.get("janahada")!.slug,
-          imageUrl: programMap.get("janahada")!.imageUrl,
-          category: programMap.get("janahada")!.category
-        }
-      : null,
-    createdAt,
-    updatedAt: createdAt
-  },
-  {
-    id: "samanmaliya-2-1320",
-    title: "Samanmaliya",
-    dayOfWeek: 2,
-    startMinutes: 22 * 60,
-    endMinutes: 22 * 60 + 30,
-    timezone: "Asia/Colombo",
-    isLiveWindow: false,
-    notes: "Prime drama slot",
-    program: programMap.get("samanmaliya")
-      ? {
-          id: programMap.get("samanmaliya")!.id,
-          title: programMap.get("samanmaliya")!.title,
-          slug: programMap.get("samanmaliya")!.slug,
-          imageUrl: programMap.get("samanmaliya")!.imageUrl,
-          category: programMap.get("samanmaliya")!.category
-        }
-      : null,
-    createdAt,
-    updatedAt: createdAt
-  },
-  {
-    id: "yowun-wasanthe-3-840",
-    title: "Yowun Wasanthe",
-    dayOfWeek: 3,
-    startMinutes: 14 * 60,
-    endMinutes: 14 * 60 + 30,
-    timezone: "Asia/Colombo",
-    isLiveWindow: false,
-    notes: "Afternoon youth drama",
-    program: programMap.get("yowun-wasanthe")
-      ? {
-          id: programMap.get("yowun-wasanthe")!.id,
-          title: programMap.get("yowun-wasanthe")!.title,
-          slug: programMap.get("yowun-wasanthe")!.slug,
-          imageUrl: programMap.get("yowun-wasanthe")!.imageUrl,
-          category: programMap.get("yowun-wasanthe")!.category
-        }
-      : null,
-    createdAt,
-    updatedAt: createdAt
-  },
-  {
-    id: "every-morning-4-480",
-    title: "Every Morning",
-    dayOfWeek: 4,
-    startMinutes: 8 * 60,
-    endMinutes: 9 * 60 + 30,
-    timezone: "Asia/Colombo",
-    isLiveWindow: false,
-    notes: "Daily lifestyle block",
-    program: programMap.get("every-morning")
-      ? {
-          id: programMap.get("every-morning")!.id,
-          title: programMap.get("every-morning")!.title,
-          slug: programMap.get("every-morning")!.slug,
-          imageUrl: programMap.get("every-morning")!.imageUrl,
-          category: programMap.get("every-morning")!.category
-        }
-      : null,
-    createdAt,
-    updatedAt: createdAt
-  },
-  {
-    id: "sports-supreme-5-1260",
-    title: "Sports Supreme",
-    dayOfWeek: 5,
-    startMinutes: 21 * 60,
-    endMinutes: 21 * 60 + 30,
-    timezone: "Asia/Colombo",
-    isLiveWindow: false,
-    notes: "Daily sports wrap",
-    program: programMap.get("sports-supreme")
-      ? {
-          id: programMap.get("sports-supreme")!.id,
-          title: programMap.get("sports-supreme")!.title,
-          slug: programMap.get("sports-supreme")!.slug,
-          imageUrl: programMap.get("sports-supreme")!.imageUrl,
-          category: programMap.get("sports-supreme")!.category
-        }
-      : null,
-    createdAt,
-    updatedAt: createdAt
+function buildScheduleProgram(programSlug?: string | null) {
+  const program = programSlug ? programMap.get(programSlug) : null;
+
+  if (!program) {
+    return null;
   }
-];
+
+  return {
+    id: program.id,
+    title: program.title,
+    slug: program.slug,
+    imageUrl: program.imageUrl,
+    category: program.category
+  };
+}
+
+export const staticScheduleSlots: ScheduleSlotWithProgram[] = scheduleDefinitions.map((slot) => ({
+  id: `${slot.programSlug ?? slot.title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-${slot.dayOfWeek}-${slot.startMinutes}`,
+  title: slot.title,
+  dayOfWeek: slot.dayOfWeek,
+  startMinutes: slot.startMinutes,
+  endMinutes: slot.endMinutes,
+  timezone: "Asia/Colombo",
+  isLiveWindow: slot.isLiveWindow,
+  notes: slot.notes,
+  program: buildScheduleProgram(slot.programSlug),
+  createdAt,
+  updatedAt: createdAt
+}));
 
 for (const program of staticPrograms) {
   program.scheduleSlots = staticScheduleSlots

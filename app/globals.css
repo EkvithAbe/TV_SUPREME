@@ -4,6 +4,11 @@
 
 :root {
   color-scheme: light;
+  --font-heading: var(--font-body);
+  --brand-purple: #5d2ab9;
+  --brand-purple-dark: #432085;
+  --brand-pink: #ef2b91;
+  --page-ink: #211833;
 }
 
 * {
@@ -12,6 +17,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 7rem;
 }
 
 body {
@@ -36,8 +42,8 @@ img {
 }
 
 ::selection {
-  background: rgba(193, 61, 42, 0.18);
-  color: #101820;
+  background: rgba(239, 43, 145, 0.2);
+  color: var(--page-ink);
 }
 
 button,
@@ -45,6 +51,11 @@ input,
 select,
 textarea {
   font: inherit;
+}
+
+:where(a, button, input, select, textarea):focus-visible {
+  outline: 3px solid rgba(239, 43, 145, 0.48);
+  outline-offset: 3px;
 }
 
 .broadcast-shell {
@@ -68,45 +79,60 @@ textarea {
 }
 
 .surface-card {
-  @apply rounded-[22px] border border-supreme-ink/10 bg-white shadow-[0_14px_34px_rgba(16,24,32,0.06)];
+  @apply rounded-[22px] border border-supreme-ink/10 bg-white shadow-[0_12px_30px_rgba(33,24,51,0.07)];
 }
 
 .surface-card-dark {
-  @apply rounded-[22px] border border-supreme-ink/10 bg-white text-supreme-ink shadow-[0_14px_34px_rgba(16,24,32,0.06)];
+  @apply rounded-[22px] border border-supreme-ink/10 bg-white text-supreme-ink shadow-[0_12px_30px_rgba(33,24,51,0.07)];
 }
 
 .section-wrap {
-  @apply mx-auto max-w-7xl px-5 sm:px-8 lg:px-12;
+  @apply mx-auto max-w-[1200px] px-5 sm:px-8 lg:px-10;
 }
 
 .eyebrow {
-  @apply text-[11px] font-heading font-bold uppercase tracking-[0.24em] text-supreme-vivid;
+  @apply text-[11px] font-heading font-bold uppercase tracking-[0.2em] text-[#5d2ab9];
 }
 
 .section-title {
-  @apply font-heading text-3xl font-extrabold tracking-tight text-supreme-ink sm:text-4xl;
+  @apply font-heading text-3xl font-extrabold leading-[1.04] tracking-[-0.035em] text-supreme-ink sm:text-4xl lg:text-[2.8rem];
 }
 
 .section-copy {
-  @apply max-w-2xl text-sm leading-7 text-supreme-mid sm:text-base;
+  @apply max-w-2xl text-sm leading-7 text-supreme-mid sm:text-base sm:leading-8;
 }
 
 .link-pill {
-  @apply inline-flex items-center gap-2 rounded-full border border-supreme-ink/10 bg-white px-5 py-3 text-sm font-heading font-semibold text-supreme-ink transition hover:border-[#4f239a] hover:text-[#4f239a];
+  @apply inline-flex min-h-11 items-center gap-2 rounded-full border border-[#d8cce9] bg-white px-5 py-3 text-sm font-heading font-semibold text-supreme-ink transition duration-200 hover:border-[#5d2ab9] hover:bg-[#faf7ff] hover:text-[#5d2ab9];
 }
 
 .primary-pill {
-  @apply inline-flex items-center gap-2 rounded-full bg-[#4f239a] px-5 py-3 text-sm font-heading font-semibold text-white shadow-[0_12px_26px_rgba(79,35,154,0.18)] transition hover:bg-[#3b1b74];
+  @apply inline-flex min-h-11 items-center gap-2 rounded-full bg-[#5d2ab9] px-5 py-3 text-sm font-heading font-semibold text-white shadow-[0_8px_18px_rgba(93,42,185,0.2)] transition duration-200 hover:-translate-y-0.5 hover:bg-[#432085] hover:shadow-[0_12px_22px_rgba(93,42,185,0.24)];
+}
+
+.outline-pill {
+  @apply inline-flex min-h-11 items-center gap-2 rounded-full border border-[#5d2ab9] bg-transparent px-5 py-3 text-sm font-heading font-semibold text-[#5d2ab9] transition duration-200 hover:bg-[#f6f0ff];
 }
 
 .data-pill {
-  @apply inline-flex items-center gap-2 rounded-full border border-supreme-ink/10 bg-supreme-mist px-4 py-2 text-[11px] font-heading font-semibold uppercase tracking-[0.18em] text-supreme-mid;
+  @apply inline-flex items-center gap-2 rounded-full border border-[#e5def0] bg-[#fbf9fe] px-4 py-2 text-[11px] font-heading font-semibold uppercase tracking-[0.16em] text-supreme-mid;
 }
 
 .metric-card {
-  @apply rounded-[20px] border border-supreme-ink/10 bg-supreme-mist p-5;
+  @apply rounded-[20px] border border-[#e9e1f2] bg-[#fbf9fe] p-5;
 }
 
 .ink-card {
-  @apply rounded-[24px] border border-supreme-ink/10 bg-supreme-mist text-supreme-ink shadow-card;
+  @apply rounded-[24px] border border-[#e9e1f2] bg-white text-supreme-ink shadow-card;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

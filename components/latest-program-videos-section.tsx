@@ -91,46 +91,47 @@ export function LatestProgramVideosSection({
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(115,25,219,0.08),transparent_34%),radial-gradient(circle_at_bottom_left,rgba(255,68,24,0.06),transparent_22%)]" />
 
         <div className="section-wrap relative z-10">
-          <div className="mb-10 max-w-3xl xl:mb-12">
+          <div className="mb-9 max-w-2xl xl:mb-10">
             <p className="eyebrow">Programs</p>
-            <h2 className="mt-4 font-heading text-[2.8rem] font-extrabold leading-[0.92] tracking-[-0.05em] text-supreme-ink sm:text-[3.8rem] lg:text-[5rem]">
+            <h2 className="section-title mt-3">
               Latest{" "}
               <span className="bg-gradient-to-r from-[#3436d6] to-[#7b39ee] bg-clip-text text-transparent">
                 Episodes
               </span>
             </h2>
+            <p className="section-copy mt-3">
+              Fresh performances, interviews, and programme moments from TV Supreme.
+            </p>
           </div>
 
-          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4 xl:grid-rows-3">
-            <article className="flex min-h-[21rem] flex-col justify-between rounded-[30px] border border-[#ece8f2] bg-[#faf8fd] p-6 text-supreme-ink shadow-[0_20px_55px_rgba(17,24,39,0.08)] sm:min-h-[24rem] sm:p-7 xl:row-span-2 xl:min-h-0">
+          <div className="grid gap-4 sm:grid-cols-2 xl:auto-rows-[13rem] xl:grid-cols-4">
+            <article className="flex min-h-[20rem] flex-col justify-between rounded-[24px] border border-[#e9e1f2] bg-[#faf8fd] p-5 text-supreme-ink shadow-[0_14px_32px_rgba(33,24,51,0.07)] sm:min-h-[22rem] sm:p-6 xl:row-span-2 xl:min-h-0">
               <div>
-                <div className="space-y-1 font-heading text-[2.25rem] font-black italic uppercase leading-[0.92] tracking-[-0.04em] sm:text-[2.8rem] xl:text-[3.15rem]">
-                  <div className="text-[#ff4d34]">Latest</div>
-                  <div className="text-supreme-ink">Program</div>
-                  <div className="text-supreme-ink">Videos</div>
-                </div>
+                <p className="eyebrow">Watch now</p>
+                <h3 className="mt-3 max-w-[14rem] font-heading text-[2.2rem] font-extrabold leading-[0.96] tracking-[-0.045em] text-supreme-ink sm:text-[2.65rem]">
+                  Latest <span className="text-[#5d2ab9]">Episodes</span>
+                </h3>
 
-                <p className="mt-6 max-w-[15rem] text-base leading-8 text-supreme-mid sm:mt-8 sm:text-lg sm:leading-9">
-                  Explore a curated collection of recent TV Supreme episodes,
-                  performances, and channel highlights.
+                <p className="mt-5 max-w-[15rem] text-sm leading-7 text-supreme-mid sm:text-base sm:leading-8">
+                  Explore recent TV Supreme episodes, performances, and channel highlights.
                 </p>
               </div>
 
-              <div className="mt-8 grid gap-3 sm:mt-10">
+              <div className="mt-7 grid gap-3">
                 <Link
                   href="/programs"
-                  className="inline-flex w-full items-center justify-center rounded-[16px] bg-[#5d2ab9] px-6 py-4 font-heading text-base font-semibold uppercase tracking-[0.08em] text-white transition hover:bg-[#4d2298] sm:text-lg"
+                  className="primary-pill w-full justify-center px-5 py-3"
                 >
-                  More
+                  Browse episodes
                 </Link>
 
                 <button
                   type="button"
                   onClick={() => setOpenVideoId(leadVideo.id)}
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-[16px] border border-[#ddd4ea] bg-white px-6 py-4 font-heading text-base font-semibold uppercase tracking-[0.08em] text-supreme-ink transition hover:border-[#c8bcdd] hover:bg-[#f7f3ff] sm:text-lg"
+                  className="link-pill w-full justify-center px-5 py-3"
                 >
                   <Play className="h-4 w-4 fill-current" />
-                  Play
+                  Play latest
                 </button>
               </div>
             </article>
@@ -140,28 +141,24 @@ export function LatestProgramVideosSection({
                 key={video.id}
                 type="button"
                 onClick={() => setOpenVideoId(video.id)}
-                className={`group relative min-h-[15rem] overflow-hidden rounded-[28px] text-left shadow-[0_18px_48px_rgba(0,0,0,0.24)] transition duration-300 hover:-translate-y-1 ${
+                className={`group relative min-h-[17rem] overflow-hidden rounded-[24px] text-left shadow-[0_14px_30px_rgba(18,10,31,0.18)] transition duration-300 hover:-translate-y-1 ${
                   collageSpanClasses[index] ?? ""
-                } ${
-                  index === 1 || index === 4 || index === 6
-                    ? "sm:min-h-[22rem]"
-                    : "sm:min-h-[16rem]"
-                }`}
+                } xl:min-h-0`}
               >
                 <img
                   src={video.thumbnailUrl}
                   alt={video.videoTitle}
                   className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,5,0.1)_0%,rgba(5,5,5,0.2)_36%,rgba(5,5,5,0.78)_100%)]" />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,5,0.12)_0%,rgba(5,5,5,0.22)_38%,rgba(5,5,5,0.84)_100%)]" />
 
                 <div className="relative flex h-full flex-col justify-between p-4 sm:p-5">
                   <div className="flex items-start justify-between gap-3">
-                    <span className="rounded-full bg-black/30 px-3 py-1 text-[10px] font-heading font-bold uppercase tracking-[0.18em] text-white backdrop-blur-md">
+                    <span className="rounded-full border border-white/14 bg-black/28 px-3 py-1 text-[10px] font-heading font-bold uppercase tracking-[0.16em] text-white backdrop-blur-sm">
                       {video.isLive ? "Live" : video.categoryName}
                     </span>
 
-                    <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/16 text-white backdrop-blur-md transition group-hover:bg-white/24">
+                    <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/16 text-white backdrop-blur-sm transition group-hover:bg-white/26">
                       <Play className="ml-0.5 h-4 w-4 fill-current" />
                     </span>
                   </div>
@@ -170,7 +167,7 @@ export function LatestProgramVideosSection({
                     <p className="text-[11px] font-heading font-bold uppercase tracking-[0.18em] text-white/72">
                       {video.programTitle}
                     </p>
-                    <h3 className="mt-2 max-w-[14rem] line-clamp-2 font-heading text-xl font-extrabold leading-tight text-white sm:text-[1.6rem]">
+                    <h3 className="mt-2 max-w-[15rem] line-clamp-2 font-heading text-xl font-extrabold leading-[1.08] text-white sm:text-[1.45rem]">
                       {video.videoTitle}
                     </h3>
                   </div>
@@ -187,7 +184,7 @@ export function LatestProgramVideosSection({
           onClick={() => setOpenVideoId(null)}
         >
           <div
-            className="relative w-full max-w-6xl overflow-hidden rounded-[32px] border border-white/10 bg-[#0a0a0e] shadow-[0_28px_80px_rgba(0,0,0,0.45)]"
+            className="relative w-full max-w-6xl overflow-hidden rounded-[26px] border border-white/10 bg-[#0a0a0e] shadow-[0_20px_56px_rgba(0,0,0,0.42)]"
             onClick={(event) => event.stopPropagation()}
           >
             <button

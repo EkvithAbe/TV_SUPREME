@@ -10,20 +10,20 @@ export default {
     extend: {
       colors: {
         supreme: {
-          dark: "#132022",
-          deep: "#1D2C2F",
-          primary: "#8F7658",
-          mid: "#5F665F",
-          pink: "#BC4127",
-          light: "#F6F1E8",
-          vivid: "#C13D2A",
-          bright: "#F26A3D",
-          ink: "#101820",
-          gold: "#C89B3C",
-          paper: "#FBF7EF",
-          sand: "#DACBB7",
-          pine: "#23332F",
-          mist: "#FFFDF8"
+          dark: "#24133f",
+          deep: "#34205d",
+          primary: "#5D2AB9",
+          mid: "#6f677d",
+          pink: "#EF2B91",
+          light: "#F7F3FC",
+          vivid: "#5D2AB9",
+          bright: "#EF2B91",
+          ink: "#211833",
+          gold: "#F5B91A",
+          paper: "#FCFBFE",
+          sand: "#E9E1F2",
+          pine: "#3F216F",
+          mist: "#FBF9FE"
         }
       },
       fontFamily: {
@@ -65,9 +65,9 @@ export default {
         }
       },
       boxShadow: {
-        card: "0 18px 50px rgba(16, 24, 32, 0.08)",
-        "card-hover": "0 28px 70px rgba(16, 24, 32, 0.14)",
-        nav: "0 16px 36px rgba(16, 24, 32, 0.08)"
+        card: "0 14px 34px rgba(33, 24, 51, 0.08)",
+        "card-hover": "0 20px 44px rgba(33, 24, 51, 0.13)",
+        nav: "0 8px 24px rgba(33, 24, 51, 0.08)"
       }
     }
   },

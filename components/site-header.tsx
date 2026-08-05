@@ -10,8 +10,9 @@ const NAV = [
   { href: "/#shows", label: "Shows" },
   { href: "/#news", label: "News" },
   { href: "/programs", label: "Sigaram", match: "/programs" },
+  { href: "/schedule", label: "Schedule", match: "/schedule" },
   { href: "/about", label: "About", match: "/about" },
-  { href: "/#contact", label: "Contact" }
+  { href: "/contact", label: "Contact", match: "/contact" }
 ];
 
 export function SiteHeader() {
@@ -84,22 +85,22 @@ export function SiteHeader() {
     <header
       className={
         isOverlayHomeHeader
-          ? `fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#0b1020]/68 shadow-[0_18px_40px_rgba(6,10,22,0.34)] backdrop-blur-xl transition-transform duration-300 ${headerOffsetClass}`
-          : `${isHome ? "fixed" : "sticky"} inset-x-0 top-0 z-50 border-b border-[#ece8f2] bg-white/96 shadow-[0_10px_28px_rgba(16,24,32,0.08)] backdrop-blur-md transition-transform duration-300 ${headerOffsetClass}`
+          ? `fixed inset-x-0 top-0 z-50 border-b border-white/12 bg-[#171027]/82 shadow-[0_6px_20px_rgba(10,6,20,0.16)] backdrop-blur-sm transition-transform duration-300 ${headerOffsetClass}`
+          : `${isHome ? "fixed" : "sticky"} inset-x-0 top-0 z-50 border-b border-[#e8e1f1] bg-white/98 shadow-[0_6px_18px_rgba(33,24,51,0.07)] backdrop-blur-sm transition-transform duration-300 ${headerOffsetClass}`
       }
     >
-      <div className="mx-auto max-w-[1160px] px-5 py-4 sm:px-8 sm:py-5 lg:px-10">
+      <div className="mx-auto max-w-[1200px] px-5 py-3 sm:px-8 sm:py-3.5 lg:px-10">
         <div className="flex items-center justify-between gap-4">
           <Link href="/" className="flex items-center">
             <img
               src="/images/tv-supreme-logo-final.png"
               alt="TV Supreme"
-              className="h-20 w-20 shrink-0 object-contain drop-shadow-[0_12px_24px_rgba(79,35,154,0.14)] sm:h-24 sm:w-24"
+              className="h-16 w-16 shrink-0 object-contain sm:h-[4.5rem] sm:w-[4.5rem]"
             />
           </Link>
 
-          <div className="hidden lg:flex lg:items-center lg:gap-10">
-            <nav className="flex flex-wrap items-center gap-8 text-base">
+          <div className="hidden lg:flex lg:items-center lg:gap-7">
+            <nav className="flex flex-wrap items-center gap-6 text-[15px] xl:gap-7">
               {NAV.map((item) => {
                 const isActive = item.match
                   ? pathname === item.match || pathname.startsWith(`${item.match}/`)
@@ -131,7 +132,7 @@ export function SiteHeader() {
 
             <Link
               href="/live"
-              className="inline-flex w-fit items-center gap-2 rounded-full bg-[#5d2ab9] px-7 py-3 font-heading text-sm font-semibold text-white shadow-[0_14px_28px_rgba(93,42,185,0.18)] transition hover:bg-[#4d2298]"
+              className="inline-flex w-fit items-center gap-2 rounded-full bg-[#5d2ab9] px-5 py-2.5 font-heading text-sm font-semibold text-white shadow-[0_8px_18px_rgba(93,42,185,0.2)] transition hover:bg-[#432085]"
             >
               <Play className="h-4 w-4 fill-current" />
               Watch Live
@@ -157,7 +158,7 @@ export function SiteHeader() {
         {isMenuOpen ? (
           <div
             id="mobile-navigation"
-            className="mt-4 rounded-[24px] border border-[#ece8f2] bg-white p-4 shadow-[0_16px_36px_rgba(16,24,32,0.08)] lg:hidden"
+            className="mt-3 rounded-[20px] border border-[#e8e1f1] bg-white p-3 shadow-[0_12px_28px_rgba(33,24,51,0.1)] lg:hidden"
           >
             <nav className="flex flex-col gap-3">
               {NAV.map((item) => {
@@ -185,7 +186,7 @@ export function SiteHeader() {
             <Link
               href="/live"
               onClick={() => setIsMenuOpen(false)}
-              className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#5d2ab9] px-6 py-3.5 font-heading text-sm font-semibold text-white shadow-[0_14px_28px_rgba(93,42,185,0.18)] transition hover:bg-[#4d2298]"
+              className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#5d2ab9] px-6 py-3 font-heading text-sm font-semibold text-white shadow-[0_8px_18px_rgba(93,42,185,0.2)] transition hover:bg-[#432085]"
             >
               <Play className="h-4 w-4 fill-current" />
               Watch Live

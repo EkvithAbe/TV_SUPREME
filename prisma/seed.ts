@@ -1,6 +1,7 @@
 import { SocialPlatform, type PrismaClient } from "@prisma/client";
 
 import { prisma } from "@/lib/prisma";
+import { scheduleDefinitions } from "@/lib/schedule-definitions";
 import { slugify } from "@/lib/utils";
 
 async function upsertCategories(db: PrismaClient) {
@@ -298,71 +299,16 @@ async function upsertSchedule(db: PrismaClient) {
   const programs = await db.program.findMany();
   const bySlug = new Map(programs.map((program) => [program.slug, program.id]));
 
-  const slots = [
-    {
-      title: "Supreme Prime Time News",
-      programSlug: "supreme-prime-time-news",
-      dayOfWeek: 1,
-      startMinutes: 19 * 60,
-      endMinutes: 19 * 60 + 30,
-      isLiveWindow: true,
-      notes: "Primary nightly bulletin window"
-    },
-    {
-      title: "Janahada",
-      programSlug: "janahada",
-      dayOfWeek: 1,
-      startMinutes: 20 * 60,
-      endMinutes: 20 * 60 + 60,
-      isLiveWindow: false,
-      notes: "Current affairs discussion"
-    },
-    {
-      title: "Samanmaliya",
-      programSlug: "samanmaliya",
-      dayOfWeek: 2,
-      startMinutes: 22 * 60,
-      endMinutes: 22 * 60 + 30,
-      isLiveWindow: false,
-      notes: "Prime drama slot"
-    },
-    {
-      title: "Yowun Wasanthe",
-      programSlug: "yowun-wasanthe",
-      dayOfWeek: 3,
-      startMinutes: 14 * 60,
-      endMinutes: 14 * 60 + 30,
-      isLiveWindow: false,
-      notes: "Afternoon youth drama"
-    },
-    {
-      title: "Every Morning",
-      programSlug: "every-morning",
-      dayOfWeek: 4,
-      startMinutes: 8 * 60,
-      endMinutes: 9 * 60 + 30,
-      isLiveWindow: false,
-      notes: "Daily lifestyle block"
-    },
-    {
-      title: "Sports Supreme",
-      programSlug: "sports-supreme",
-      dayOfWeek: 5,
-      startMinutes: 21 * 60,
-      endMinutes: 21 * 60 + 30,
-      isLiveWindow: false,
-      notes: "Daily sports wrap"
-    }
-  ];
+  for (const slot of scheduleDefinitions) {
+    const slotId = `${slot.programSlug ?? slugify(slot.title)}-${slot.dayOfWeek}-${slot.startMinutes}`;
 
-  for (const slot of slots) {
     await db.scheduleSlot.upsert({
       where: {
-        id: `${slot.programSlug}-${slot.dayOfWeek}-${slot.startMinutes}`
+        id: slotId
       },
       update: {
         title: slot.title,
-        programId: bySlug.get(slot.programSlug),
+        programId: slot.programSlug ? bySlug.get(slot.programSlug) : null,
         dayOfWeek: slot.dayOfWeek,
         startMinutes: slot.startMinutes,
         endMinutes: slot.endMinutes,
@@ -370,9 +316,9 @@ async function upsertSchedule(db: PrismaClient) {
         notes: slot.notes
       },
       create: {
-        id: `${slot.programSlug}-${slot.dayOfWeek}-${slot.startMinutes}`,
+        id: slotId,
         title: slot.title,
-        programId: bySlug.get(slot.programSlug),
+        programId: slot.programSlug ? bySlug.get(slot.programSlug) : null,
         dayOfWeek: slot.dayOfWeek,
         startMinutes: slot.startMinutes,
         endMinutes: slot.endMinutes,

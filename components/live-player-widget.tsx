@@ -26,8 +26,8 @@ type Position = {
 };
 
 const DRAG_THRESHOLD = 6;
-const DESKTOP_MARGIN = 24;
-const MOBILE_MARGIN = 16;
+const DESKTOP_MARGIN = 36;
+const MOBILE_MARGIN = 14;
 
 function getViewportMargin() {
   return window.innerWidth >= 640 ? DESKTOP_MARGIN : MOBILE_MARGIN;
@@ -70,6 +70,10 @@ export function LivePlayerWidget({
   const [isExpanded, setIsExpanded] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(false);
+  const [isFooterVisible, setIsFooterVisible] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [hasCustomPosition, setHasCustomPosition] = useState(false);
 
   useEffect(() => {
     const updatePosition = () => {
@@ -81,10 +85,10 @@ export function LivePlayerWidget({
       const margin = getViewportMargin();
 
       setPosition((currentPosition) => {
-        if (!currentPosition) {
+        if (!currentPosition || isMobile) {
           return {
             x: window.innerWidth - rect.width - margin,
-            y: window.innerHeight - rect.height - margin
+            y: isMobile ? 96 : window.innerHeight - rect.height - margin
           };
         }
 
@@ -98,7 +102,56 @@ export function LivePlayerWidget({
     return () => {
       window.removeEventListener("resize", updatePosition);
     };
-  }, [isExpanded, pathname]);
+  }, [isExpanded, hasScrolled, isMobile, pathname]);
+
+  useEffect(() => {
+    const updateViewport = () => setIsMobile(window.innerWidth < 640);
+
+    updateViewport();
+    window.addEventListener("resize", updateViewport);
+
+    return () => window.removeEventListener("resize", updateViewport);
+  }, []);
+
+  useEffect(() => {
+    let frame = 0;
+
+    const updateCompactState = () => {
+      frame = 0;
+      setHasScrolled(window.scrollY > 140);
+    };
+
+    const handleScroll = () => {
+      if (!frame) {
+        frame = window.requestAnimationFrame(updateCompactState);
+      }
+    };
+
+    updateCompactState();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    const footer = document.querySelector("footer");
+
+    if (!footer) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsFooterVisible(entry.isIntersecting),
+      { threshold: 0.08 }
+    );
+
+    observer.observe(footer);
+
+    return () => observer.disconnect();
+  }, []);
 
   const startDrag = (event: React.PointerEvent<HTMLElement>) => {
     if (
@@ -139,6 +192,7 @@ export function LivePlayerWidget({
 
     if (!isDragging) {
       setIsDragging(true);
+      setHasCustomPosition(true);
     }
 
     const rect = widgetRef.current.getBoundingClientRect();
@@ -170,11 +224,15 @@ export function LivePlayerWidget({
     }
   };
 
-  if (pathname === "/live" || pathname.startsWith("/admin")) {
+  if (pathname === "/live" || pathname === "/schedule" || pathname.startsWith("/admin")) {
     return null;
   }
 
   const isInteractionLocked = () => Date.now() < clickLockUntilRef.current;
+  const isCompact =
+    (isMobile || hasScrolled || isFooterVisible || pathname !== "/") && !isExpanded;
+  const footerSafeTop =
+    typeof window !== "undefined" && window.innerWidth >= 640 ? 92 : 96;
 
   const handleShare = async () => {
     const liveUrl = `${window.location.origin}/live`;
@@ -198,24 +256,39 @@ export function LivePlayerWidget({
   return (
     <aside
       ref={widgetRef}
-      className={`fixed z-40 overflow-hidden rounded-[1.4rem] bg-white shadow-[0_24px_60px_rgba(16,24,32,0.18)] transition-[transform,box-shadow,width] duration-300 ${
+      className={`fixed z-40 overflow-hidden rounded-[1.25rem] border border-white/70 bg-white shadow-[0_12px_28px_rgba(33,24,51,0.16)] transition-[transform,box-shadow,width] duration-300 ${
         isExpanded
-          ? "w-[min(20rem,calc(100vw-2rem))]"
-          : "w-[min(18rem,calc(100vw-2rem))]"
+          ? "w-[min(18rem,calc(100vw-2rem))] sm:w-[min(19rem,calc(100vw-4.5rem))]"
+          : "w-[min(15rem,calc(100vw-2rem))] sm:w-[min(17rem,calc(100vw-4.5rem))]"
       } ${
         isDragging
           ? "cursor-grabbing select-none"
-          : "cursor-grab hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(147,51,234,0.18)]"
+          : "cursor-grab hover:-translate-y-1 hover:shadow-[0_16px_32px_rgba(93,42,185,0.2)]"
       }`}
       onPointerDown={startDrag}
       onPointerMove={handlePointerMove}
       onPointerUp={finishDrag}
       onPointerCancel={finishDrag}
       style={
-        position
+        !hasCustomPosition
+          ? isFooterVisible
+            ? {
+                right: `${getViewportMargin()}px`,
+                top: `${footerSafeTop}px`
+              }
+            : isMobile
+              ? {
+                  right: `${MOBILE_MARGIN}px`,
+                  top: "96px"
+                }
+              : {
+                  right: `${DESKTOP_MARGIN}px`,
+                  bottom: `${DESKTOP_MARGIN}px`
+                }
+          : position
           ? {
               left: `${position.x}px`,
-              top: `${position.y}px`
+              top: `${isFooterVisible && !isDragging ? footerSafeTop : position.y}px`
             }
           : undefined
       }
@@ -224,7 +297,9 @@ export function LivePlayerWidget({
         <div
           role="button"
           tabIndex={0}
-          className="relative flex h-40 items-center justify-center overflow-hidden bg-gradient-to-br from-purple-800 via-pink-700 to-purple-900"
+          className={`relative flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#4a237e] via-[#cc2b91] to-[#30144f] transition-[height] duration-300 ${
+            isCompact ? "h-24 sm:h-28" : "h-36 sm:h-40"
+          }`}
           onClick={() => {
             if (!isInteractionLocked()) {
               setIsExpanded((current) => !current);
@@ -244,17 +319,17 @@ export function LivePlayerWidget({
           />
           <div className="absolute inset-0 bg-gradient-to-br from-purple-950/70 via-pink-800/60 to-purple-950/80" />
 
-          <div className="relative px-6 text-center">
-            <div className="mx-auto mb-3 flex h-14 w-14 animate-pulse items-center justify-center rounded-full bg-white/20 backdrop-blur">
-              <Play className="h-7 w-7 fill-white text-white" />
+          <div className={`relative px-5 text-center ${isCompact ? "scale-[0.86]" : ""}`}>
+            <div className="mx-auto mb-2 flex h-12 w-12 animate-pulse items-center justify-center rounded-full bg-white/20 backdrop-blur-sm">
+              <Play className="h-6 w-6 fill-white text-white" />
             </div>
-            <p className="line-clamp-2 font-semibold text-white">{title}</p>
+            <p className="line-clamp-2 text-sm font-semibold text-white">{title}</p>
             <p className="text-xs text-white/70">
               {isMuted ? "Muted preview" : subtitle}
             </p>
           </div>
 
-          <div className="absolute left-3 top-3 rounded-md bg-red-600 px-2 py-1">
+          <div className="absolute left-3 top-3 rounded-md bg-[#e9255d] px-2 py-1">
             <span className="text-xs font-bold text-white">LIVE</span>
           </div>
 
@@ -268,7 +343,7 @@ export function LivePlayerWidget({
                 event.stopPropagation();
                 setIsMuted((current) => !current);
               }}
-              className="rounded-lg bg-white/20 p-2 text-white backdrop-blur transition-colors hover:bg-white/30"
+              className="rounded-lg bg-white/18 p-1.5 text-white backdrop-blur-sm transition-colors hover:bg-white/30"
             >
               {isMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
             </button>
@@ -280,7 +355,7 @@ export function LivePlayerWidget({
                 event.stopPropagation();
                 setIsExpanded((current) => !current);
               }}
-              className="rounded-lg bg-white/20 p-2 text-white backdrop-blur transition-colors hover:bg-white/30"
+              className="rounded-lg bg-white/18 p-1.5 text-white backdrop-blur-sm transition-colors hover:bg-white/30"
             >
               {isExpanded ? <Minimize2 className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}
             </button>
@@ -289,11 +364,11 @@ export function LivePlayerWidget({
         </div>
       </div>
 
-      <div className="p-4">
+      <div className={`transition-[padding] duration-300 ${isCompact ? "p-2.5 sm:p-3" : "p-3.5 sm:p-4"}`}>
         <div className="flex items-center justify-between gap-3">
           <div className="flex min-w-0 items-center gap-2">
             <div className="h-2 w-2 shrink-0 rounded-full bg-red-600 animate-pulse" />
-            <span className="truncate text-sm text-gray-600">{viewerLabel}</span>
+            <span className="truncate text-xs text-gray-600 sm:text-sm">{viewerLabel}</span>
           </div>
 
           <div className="flex items-center gap-2">
@@ -303,10 +378,10 @@ export function LivePlayerWidget({
               data-widget-control="true"
               aria-pressed={isLiked}
               onClick={() => setIsLiked((current) => !current)}
-              className="rounded-lg p-2 transition-colors hover:bg-purple-50"
+              className="rounded-lg p-1.5 transition-colors hover:bg-purple-50"
             >
               <Heart
-                className={`h-5 w-5 transition-colors ${
+                className={`h-4 w-4 transition-colors ${
                   isLiked ? "fill-[#7c3aed] text-[#7c3aed]" : "text-purple-700"
                 }`}
               />
@@ -317,9 +392,9 @@ export function LivePlayerWidget({
               aria-label="Share live page"
               data-widget-control="true"
               onClick={handleShare}
-              className="rounded-lg p-2 transition-colors hover:bg-purple-50"
+              className="rounded-lg p-1.5 transition-colors hover:bg-purple-50"
             >
-              <Share2 className="h-5 w-5 text-purple-700" />
+              <Share2 className="h-4 w-4 text-purple-700" />
             </button>
 
             <Link
@@ -331,9 +406,9 @@ export function LivePlayerWidget({
                   event.preventDefault();
                 }
               }}
-              className="rounded-lg p-2 transition-colors hover:bg-purple-50"
+              className="rounded-lg p-1.5 transition-colors hover:bg-purple-50"
             >
-              <Maximize2 className="h-5 w-5 text-purple-700" />
+              <Maximize2 className="h-4 w-4 text-purple-700" />
             </Link>
           </div>
         </div>

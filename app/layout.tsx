@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Manrope } from "next/font/google";
+import { Manrope } from "next/font/google";
 
 import { LivePlayer } from "@/components/live-player";
 import { SiteFooter } from "@/components/site-footer";
@@ -9,12 +9,8 @@ import "./globals.css";
 
 const manrope = Manrope({
   subsets: ["latin"],
-  variable: "--font-body"
-});
-
-const bricolage = Bricolage_Grotesque({
-  subsets: ["latin"],
-  variable: "--font-heading"
+  variable: "--font-body",
+  display: "swap"
 });
 
 export const metadata: Metadata = {
@@ -48,7 +44,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${manrope.variable} ${bricolage.variable}`}
+      className={manrope.variable}
       data-scroll-behavior="smooth"
     >
       <body className="bg-supreme-paper font-body text-supreme-ink antialiased">

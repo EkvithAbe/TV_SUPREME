@@ -28,7 +28,7 @@ export function VideoCard({ video }: VideoCardProps) {
           {video.title}
         </h3>
         <p className="mt-3 line-clamp-3 text-sm leading-7 text-supreme-mid">
-          {video.description ?? "Social video metadata synced from the source channel."}
+          {video.description ?? "Watch the latest update from the official TV Supreme channel."}
         </p>
         <div className="mt-5 flex items-center justify-between gap-4 text-xs text-supreme-mid">
           <span className="inline-flex items-center gap-2">
@@ -41,7 +41,7 @@ export function VideoCard({ video }: VideoCardProps) {
           href={video.url}
           target="_blank"
           rel="noreferrer"
-          className="mt-6 inline-flex items-center gap-2 rounded-full border border-[#e6e1ed] px-5 py-3 text-sm font-heading font-semibold text-supreme-ink transition hover:border-[#7a2de0] hover:text-[#7a2de0]"
+          className="link-pill mt-6"
         >
           Watch on YouTube
         </a>
