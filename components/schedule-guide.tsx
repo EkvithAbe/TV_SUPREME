@@ -95,7 +95,7 @@ export function ScheduleGuide({
 
   return (
     <section
-      className="relative overflow-hidden bg-[linear-gradient(180deg,#fffdfd_0%,#fcf8ff_54%,#fffafc_100%)] pb-24 pt-8 lg:pt-12"
+      className="relative overflow-hidden pb-24 pt-8 lg:pt-12"
     >
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(242,38,134,0.10),transparent_26%),radial-gradient(circle_at_top_right,rgba(117,53,170,0.12),transparent_28%),radial-gradient(circle_at_bottom,rgba(255,202,30,0.08),transparent_24%)]" />
 

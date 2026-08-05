@@ -49,8 +49,9 @@ export default function RootLayout({
     >
       <body className="bg-supreme-paper font-body text-supreme-ink antialiased">
         <div className="broadcast-shell min-h-screen">
+          <div aria-hidden="true" className="site-broadcast-backdrop" />
           <SiteHeader />
-          <main>{children}</main>
+          <main className="relative z-10">{children}</main>
           <SiteFooter />
           <LivePlayer />
         </div>

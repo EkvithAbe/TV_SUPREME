@@ -100,7 +100,7 @@ textarea {
   background: linear-gradient(180deg, rgba(17, 10, 31, 0.42), transparent);
 }
 
-.home-broadcast-backdrop {
+.site-broadcast-backdrop {
   position: fixed;
   inset: 0;
   z-index: 0;
@@ -113,7 +113,7 @@ textarea {
     #f7f4fb;
 }
 
-.home-broadcast-backdrop::before {
+.site-broadcast-backdrop::before {
   content: "";
   position: absolute;
   inset: -24%;
@@ -133,7 +133,7 @@ textarea {
   animation: broadcast-signal-drift 18s ease-in-out infinite alternate;
 }
 
-.home-broadcast-backdrop::after {
+.site-broadcast-backdrop::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -259,8 +259,8 @@ textarea {
     transition-duration: 0.01ms !important;
   }
 
-  .home-broadcast-backdrop::before,
-  .home-broadcast-backdrop::after {
+  .site-broadcast-backdrop::before,
+  .site-broadcast-backdrop::after {
     animation: none !important;
   }
 
