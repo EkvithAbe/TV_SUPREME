@@ -341,7 +341,7 @@ export default async function HomePage() {
 
   return (
     <div className="relative isolate overflow-x-clip">
-      <div className="pointer-events-none fixed inset-0 z-0 bg-white" />
+      <div aria-hidden="true" className="home-broadcast-backdrop" />
 
       <div className="relative z-20">
         <HomeHeroBanner slides={heroSlides} />

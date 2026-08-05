@@ -78,6 +78,87 @@ textarea {
   z-index: -1;
 }
 
+.home-broadcast-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 16% 22%, rgba(239, 43, 145, 0.16), transparent 28%),
+    radial-gradient(circle at 82% 36%, rgba(93, 42, 185, 0.18), transparent 32%),
+    radial-gradient(circle at 46% 84%, rgba(245, 185, 26, 0.09), transparent 26%),
+    #f7f4fb;
+}
+
+.home-broadcast-backdrop::before {
+  content: "";
+  position: absolute;
+  inset: -24%;
+  background:
+    linear-gradient(
+      105deg,
+      transparent 10%,
+      rgba(239, 43, 145, 0.11) 26%,
+      transparent 42%,
+      rgba(93, 42, 185, 0.12) 61%,
+      transparent 78%
+    );
+  filter: blur(34px);
+  transform: translate3d(-8%, -3%, 0) rotate(-4deg) scale(1.08);
+  transform-origin: center;
+  will-change: transform;
+  animation: broadcast-signal-drift 18s ease-in-out infinite alternate;
+}
+
+.home-broadcast-backdrop::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      180deg,
+      rgba(33, 24, 51, 0.024) 0,
+      rgba(33, 24, 51, 0.024) 1px,
+      transparent 1px,
+      transparent 6px
+    ),
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      transparent 42%,
+      rgba(255, 255, 255, 0.7) 50%,
+      transparent 58%,
+      transparent 100%
+    );
+  background-position: 0 0, 120% 0;
+  background-size: auto, 220% 100%;
+  animation: broadcast-light-sweep 12s linear infinite;
+}
+
+@keyframes broadcast-signal-drift {
+  0% {
+    transform: translate3d(-8%, -3%, 0) rotate(-4deg) scale(1.08);
+  }
+  50% {
+    transform: translate3d(5%, 4%, 0) rotate(2deg) scale(1.14);
+  }
+  100% {
+    transform: translate3d(9%, -2%, 0) rotate(5deg) scale(1.1);
+  }
+}
+
+@keyframes broadcast-light-sweep {
+  0%,
+  18% {
+    background-position: 0 0, 120% 0;
+  }
+  82%,
+  100% {
+    background-position: 0 0, -120% 0;
+  }
+}
+
 .surface-card {
   @apply rounded-[22px] border border-supreme-ink/10 bg-white shadow-[0_12px_30px_rgba(33,24,51,0.07)];
 }
@@ -134,5 +215,10 @@ textarea {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .home-broadcast-backdrop::before,
+  .home-broadcast-backdrop::after {
+    animation: none !important;
   }
 }
