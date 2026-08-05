@@ -115,24 +115,16 @@ textarea {
   content: "";
   position: absolute;
   inset: 0;
-  background:
-    repeating-linear-gradient(
-      180deg,
-      rgba(33, 24, 51, 0.024) 0,
-      rgba(33, 24, 51, 0.024) 1px,
-      transparent 1px,
-      transparent 6px
-    ),
-    linear-gradient(
-      90deg,
-      transparent 0%,
-      transparent 42%,
-      rgba(255, 255, 255, 0.7) 50%,
-      transparent 58%,
-      transparent 100%
-    );
-  background-position: 0 0, 120% 0;
-  background-size: auto, 220% 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    transparent 42%,
+    rgba(255, 255, 255, 0.7) 50%,
+    transparent 58%,
+    transparent 100%
+  );
+  background-position: 120% 0;
+  background-size: 220% 100%;
   animation: broadcast-light-sweep 12s linear infinite;
 }
 
@@ -151,11 +143,11 @@ textarea {
 @keyframes broadcast-light-sweep {
   0%,
   18% {
-    background-position: 0 0, 120% 0;
+    background-position: 120% 0;
   }
   82%,
   100% {
-    background-position: 0 0, -120% 0;
+    background-position: -120% 0;
   }
 }
 
