@@ -105,10 +105,7 @@ export function LatestProgramVideosSection({
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2 xl:auto-rows-[13rem] xl:grid-cols-4">
-            <article
-              className="latest-episode-tile flex min-h-[20rem] flex-col justify-between rounded-[24px] border border-[#e9e1f2] bg-[#faf8fd] p-5 text-supreme-ink shadow-[0_14px_32px_rgba(33,24,51,0.07)] sm:min-h-[22rem] sm:p-6 xl:row-span-2 xl:min-h-0"
-              style={{ animationDelay: "-1.4s", animationDuration: "9.4s" }}
-            >
+            <article className="flex min-h-[20rem] flex-col justify-between rounded-[24px] border border-[#e9e1f2] bg-[#faf8fd] p-5 text-supreme-ink shadow-[0_14px_32px_rgba(33,24,51,0.07)] sm:min-h-[22rem] sm:p-6 xl:row-span-2 xl:min-h-0">
               <div>
                 <p className="eyebrow">Watch now</p>
                 <h3 className="mt-3 max-w-[14rem] font-heading text-[2.2rem] font-extrabold leading-[0.96] tracking-[-0.045em] text-supreme-ink sm:text-[2.65rem]">
@@ -148,8 +145,8 @@ export function LatestProgramVideosSection({
                   collageSpanClasses[index] ?? ""
                 }`}
                 style={{
-                  animationDelay: `${-0.9 * (index + 1)}s`,
-                  animationDuration: `${8.2 + (index % 3) * 1.1}s`
+                  animationDelay: `${-1.7 * (index + 1)}s`,
+                  animationDuration: `${12 + (index % 3) * 1.5}s`
                 }}
               >
                 <button

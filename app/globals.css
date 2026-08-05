@@ -176,12 +176,14 @@ textarea {
 .latest-episode-tile {
   position: relative;
   z-index: 1;
+  transform: translate3d(0, -4px, 0);
+  backface-visibility: hidden;
   will-change: transform;
-  animation: latest-episode-drift 9s ease-in-out infinite;
+  animation: latest-episode-float 12s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
 }
 
 .latest-episode-tile-reverse {
-  animation-name: latest-episode-drift-reverse;
+  animation-direction: alternate-reverse;
 }
 
 .latest-episode-tile:hover,
@@ -190,35 +192,12 @@ textarea {
   animation-play-state: paused;
 }
 
-@keyframes latest-episode-drift {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) rotate(0deg);
+@keyframes latest-episode-float {
+  from {
+    transform: translate3d(0, -4px, 0);
   }
-  30% {
-    transform: translate3d(4px, -8px, 0) rotate(0.2deg);
-  }
-  64% {
-    transform: translate3d(-3px, 5px, 0) rotate(-0.16deg);
-  }
-  82% {
-    transform: translate3d(2px, -3px, 0) rotate(0.08deg);
-  }
-}
-
-@keyframes latest-episode-drift-reverse {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) rotate(0deg);
-  }
-  34% {
-    transform: translate3d(-5px, -6px, 0) rotate(-0.18deg);
-  }
-  68% {
-    transform: translate3d(4px, 6px, 0) rotate(0.16deg);
-  }
-  86% {
-    transform: translate3d(-2px, -2px, 0) rotate(-0.06deg);
+  to {
+    transform: translate3d(0, 4px, 0);
   }
 }
 
