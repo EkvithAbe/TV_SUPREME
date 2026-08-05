@@ -86,10 +86,8 @@ export function LatestProgramVideosSection({
     <>
       <section
         id="news"
-        className="relative overflow-hidden border-t border-supreme-ink/10 bg-white/[0.78] py-16 lg:py-20"
+        className="relative overflow-hidden border-t border-supreme-ink/10 py-16 lg:py-20"
       >
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(115,25,219,0.08),transparent_34%),radial-gradient(circle_at_bottom_left,rgba(255,68,24,0.06),transparent_22%)]" />
-
         <div className="section-wrap relative z-10">
           <div className="mb-9 max-w-2xl xl:mb-10">
             <p className="eyebrow">Programs</p>
