@@ -176,10 +176,10 @@ textarea {
 .latest-episode-tile {
   position: relative;
   z-index: 1;
-  transform: translate3d(0, -3px, 0);
+  transform: translate3d(0, -4px, 0);
   backface-visibility: hidden;
   will-change: transform;
-  animation: latest-episode-float 14s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
+  animation: latest-episode-float 12s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
 }
 
 .latest-episode-tile-reverse {
@@ -189,14 +189,15 @@ textarea {
 .latest-episode-tile:hover,
 .latest-episode-tile:focus-within {
   z-index: 5;
+  animation-play-state: paused;
 }
 
 @keyframes latest-episode-float {
   from {
-    transform: translate3d(0, -3px, 0);
+    transform: translate3d(0, -4px, 0);
   }
   to {
-    transform: translate3d(0, 3px, 0);
+    transform: translate3d(0, 4px, 0);
   }
 }
 

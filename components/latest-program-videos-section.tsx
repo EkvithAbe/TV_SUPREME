@@ -146,33 +146,32 @@ export function LatestProgramVideosSection({
                   collageSpanClasses[index] ?? ""
                 }`}
                 style={{
-                  animationDelay: `${-2.1 * (index + 1)}s`,
-                  animationDuration: `${14 + (index % 3) * 1.8}s`
+                  animationDelay: `${-1.7 * (index + 1)}s`,
+                  animationDuration: `${12 + (index % 3) * 1.5}s`
                 }}
               >
                 <button
                   type="button"
                   onClick={() => setOpenVideoId(video.id)}
-                  className="group relative min-h-[17rem] w-full transform-gpu overflow-hidden rounded-[24px] bg-[#120b1e] text-left shadow-[0_14px_30px_rgba(18,10,31,0.18)] transition-[transform,box-shadow] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform hover:scale-[1.04] hover:shadow-[0_26px_52px_rgba(18,10,31,0.32)] focus-visible:scale-[1.04] xl:h-full xl:min-h-0"
+                  className="group relative min-h-[17rem] w-full overflow-hidden rounded-[24px] bg-[#120b1e] text-left shadow-[0_14px_30px_rgba(18,10,31,0.18)] transition-[transform,box-shadow] duration-500 ease-out hover:scale-[1.05] hover:shadow-[0_26px_52px_rgba(18,10,31,0.32)] focus-visible:scale-[1.05] xl:h-full xl:min-h-0"
                 >
                   <Image
                     src={video.thumbnailUrl}
                     alt={video.videoTitle}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 25vw"
-                    className="transform-gpu object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform group-hover:scale-[1.04] group-focus-visible:scale-[1.04]"
+                    className="object-cover transition-[transform,filter] duration-500 ease-out group-hover:scale-110 group-hover:blur-[10px] group-hover:brightness-[0.45] group-focus-visible:scale-110 group-focus-visible:blur-[10px] group-focus-visible:brightness-[0.45]"
                   />
-                  <div className="absolute inset-0 bg-[#120b1e]/55 opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100 group-focus-visible:opacity-100" />
                   <Image
                     src={video.thumbnailUrl}
                     alt=""
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 25vw"
-                    className="transform-gpu scale-[0.97] object-contain p-3 opacity-0 transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform group-hover:scale-100 group-hover:opacity-100 group-focus-visible:scale-100 group-focus-visible:opacity-100"
+                    className="scale-[0.94] object-contain p-3 opacity-0 transition-[transform,opacity] duration-500 ease-out group-hover:scale-100 group-hover:opacity-100 group-focus-visible:scale-100 group-focus-visible:opacity-100"
                   />
-                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,5,0.12)_0%,rgba(5,5,5,0.22)_38%,rgba(5,5,5,0.84)_100%)] transition-opacity duration-500 ease-out group-hover:opacity-20 group-focus-visible:opacity-20" />
+                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,5,0.12)_0%,rgba(5,5,5,0.22)_38%,rgba(5,5,5,0.84)_100%)] transition-opacity duration-300 group-hover:opacity-20 group-focus-visible:opacity-20" />
 
-                  <div className="relative flex h-full min-h-[17rem] flex-col justify-between p-4 transition-opacity duration-500 ease-out group-hover:opacity-0 group-focus-visible:opacity-0 sm:p-5 xl:min-h-0">
+                  <div className="relative flex h-full min-h-[17rem] flex-col justify-between p-4 transition-opacity duration-300 group-hover:opacity-0 group-focus-visible:opacity-0 sm:p-5 xl:min-h-0">
                     <div className="flex items-start justify-between gap-3">
                       <span className="rounded-full border border-white/14 bg-black/28 px-3 py-1 text-[10px] font-heading font-bold uppercase tracking-[0.16em] text-white backdrop-blur-sm">
                         {video.isLive ? "Live" : video.categoryName}
@@ -193,7 +192,7 @@ export function LatestProgramVideosSection({
                     </div>
                   </div>
 
-                  <span className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100 group-focus-visible:opacity-100">
+                  <span className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 transition-opacity delay-100 duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
                     <span className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-black/55 px-4 py-2 text-[11px] font-heading font-bold uppercase tracking-[0.16em] text-white backdrop-blur-sm">
                       <Play className="h-4 w-4 fill-current" />
                       Play episode
